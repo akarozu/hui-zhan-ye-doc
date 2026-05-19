@@ -12,247 +12,55 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#003B99", "primary-container": "#1A52BF",
-            "on-primary": "#FFFFFF", "on-primary-container": "#FFFFFF",
-            "surface": "#F7F9FC",
-            "surface-container-low": "#F2F4F7",
-            "surface-container": "#ECEEF1",
-            "surface-container-high": "#E6E8EB",
-            "surface-container-highest": "#E0E3E6",
-            "surface-container-lowest": "#FFFFFF",
-            "on-surface": "#191C1E", "on-surface-variant": "#434653",
-            "outline": "#737685", "outline-variant": "#C3C6D0",
-            "tertiary": "#732B00", "tertiary-container": "#993C00",
-            "tertiary-fixed": "#FFDBCC", "on-tertiary-fixed": "#351000",
-            "secondary": "#4E5D88", "secondary-container": "#BFCEFF",
+            "primary": "#003B99","primary-container": "#1A52BF","surface": "#F7F9FC",
+            "surface-container-low": "#F2F4F7","surface-container": "#ECEEF1",
+            "surface-container-high": "#E6E8EB","surface-container-highest": "#E0E3E6",
+            "surface-container-lowest": "#FFFFFF","on-surface": "#191C1E",
+            "on-surface-variant": "#434653","outline-variant": "#C3C6D5","outline": "#737685",
+            "tertiary": "#732B00","tertiary-container": "#993C00","tertiary-fixed": "#FFDBCC",
+            "secondary": "#4E5D88","secondary-container": "#BFCEFF","error": "#BA1A1A",
+            "error-container": "#FFDAD6","on-primary": "#FFFFFF","on-tertiary": "#FFFFFF",
+            "on-tertiary-fixed": "#351000","on-error": "#FFFFFF","on-error-container": "#93000A",
             "on-secondary-container": "#485781",
-            "error": "#BA1A1A", "error-container": "#FFDAD6",
-            "on-error": "#FFFFFF", "on-error-container": "#93000A",
           },
-          borderRadius: { "DEFAULT": "0.25rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
-          fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] }
+          borderRadius: { "DEFAULT": "0.25rem","lg": "1rem","xl": "1.5rem","full": "9999px" },
+          fontFamily: { "headline": ["Manrope"],"body": ["Inter"],"label": ["Inter"] }
         }
       }
     }
   </script>
   <style>
+
+    /* ========== B端 Motion Tokens ========== */
     :root {
-      --motion-duration-short: 100ms; --motion-duration-medium: 200ms; --motion-duration-long: 350ms;
+      --motion-duration-short: 100ms;
+      --motion-duration-medium: 200ms;
+      --motion-duration-long: 350ms;
       --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
       --motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
       --motion-easing-decelerated: cubic-bezier(0, 0, 0, 1);
       --motion-easing-accelerated: cubic-bezier(0.3, 0, 1, 1);
     }
+
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
     h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .menu-item { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--color-outline-variant); cursor: pointer; transition: all var(--motion-duration-short) var(--motion-easing-standard); }
+    .menu-item { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #C3C6D0; cursor: pointer; transition: all 100ms cubic-bezier(0.2, 0, 0, 1); }
     .menu-item:last-child { border-bottom: none; }
     .menu-item:active { opacity: 0.7; transform: scale(0.98); }
     .menu-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    /* ========== Fallback CSS ========== */
-    body { background: #F7F9FC; color: #191C1E; margin: 0; }
-    .bg-surface { background: #F7F9FC; }
-    .bg-surface-container-lowest { background: white; }
-    .bg-surface-container { background: #ECEEF1; }
-    .bg-surface-container-high { background: #E6E8EB; }
-    .bg-surface-container-highest { background: #E0E3E6; }
-    .bg-primary { background: #003B99; }
-    .bg-primary-container { background: #1A52BF; }
-    .bg-white { background: white; }
-    .bg-gradient-to-br { background: linear-gradient(to bottom right, #003B99, #1A52BF); }
-    .text-on-surface { color: #191C1E; }
-    .text-on-surface-variant { color: #434653; }
-    .text-white { color: white; }
-    .text-primary { color: #003B99; }
-    .text-green-300 { color: #86efac; }
-    .text-red-500 { color: #ef4444; }
-    .rounded-2xl { border-radius: 1rem; }
-    .rounded-3xl { border-radius: 1.5rem; }
-    .rounded-full { border-radius: 9999px; }
-    .rounded-xl { border-radius: 0.75rem; }
-    .rounded-lg { border-radius: 0.5rem; }
-    .rounded-t-\[24px\] { border-top-left-radius: 24px; border-top-right-radius: 24px; }
-    .fixed { position: fixed; }
-    .absolute { position: absolute; }
-    .relative { position: relative; }
-    .top-0 { top: 0; }
-    .top-16 { top: 4rem; }
-    .bottom-0 { bottom: 0; }
-    .left-0 { left: 0; }
-    .right-0 { right: 0; }
-    .z-50 { z-index: 50; }
-    .w-full { width: 100%; }
-    .w-10 { width: 2.5rem; }
-    .w-5 { width: 1.25rem; }
-    .h-5 { height: 1.25rem; }
-    .h-10 { height: 2.5rem; }
-    .h-16 { height: 4rem; }
-    .flex { display: flex; }
-    .flex-col { flex-direction: column; }
-    .flex-row { flex-direction: row; }
-    .flex-1 { flex: 1 1 0%; }
-    .flex-wrap { flex-wrap: wrap; }
-    .flex-shrink-0 { flex-shrink: 0; }
-    .items-center { align-items: center; }
-    .items-start { align-items: flex-start; }
-    .items-end { align-items: flex-end; }
-    .justify-center { justify-content: center; }
-    .justify-between { justify-content: space-between; }
-    .justify-around { justify-content: space-around; }
-    .justify-end { justify-content: flex-end; }
-    .gap-1 { gap: 0.25rem; }
-    .gap-2 { gap: 0.5rem; }
-    .gap-3 { gap: 0.75rem; }
-    .gap-4 { gap: 1rem; }
-    .p-3 { padding: 0.75rem; }
-    .p-4 { padding: 1rem; }
-    .p-5 { padding: 1.25rem; }
-    .p-6 { padding: 1.5rem; }
-    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
-    .px-4 { padding-left: 1rem; padding-right: 1rem; }
-    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
-    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-    .pb-2 { padding-bottom: 0.5rem; }
-    .pb-6 { padding-bottom: 1.5rem; }
-    .pb-24 { padding-bottom: 6rem; }
-    .pt-3 { padding-top: 0.75rem; }
-    .pt-16 { padding-top: 4rem; }
-    .pt-20 { padding-top: 5rem; }
-    .pt-24 { padding-top: 6rem; }
-    .pt-4 { padding-top: 1rem; }
-    .pl-4 { padding-left: 1rem; }
-    .pr-4 { padding-right: 1rem; }
-    .mb-1 { margin-bottom: 0.25rem; }
-    .mb-2 { margin-bottom: 0.5rem; }
-    .mb-3 { margin-bottom: 0.75rem; }
-    .mb-4 { margin-bottom: 1rem; }
-    .mt-1 { margin-top: 0.25rem; }
-    .mt-2 { margin-top: 0.5rem; }
-    .mt-3 { margin-top: 0.75rem; }
-    .mt-4 { margin-top: 1rem; }
-    .mt-6 { margin-top: 1.5rem; }
-    .mb-6 { margin-bottom: 1.5rem; }
-    .ml-auto { margin-left: auto; }
-    .mr-2 { margin-right: 0.5rem; }
-    .mr-3 { margin-right: 0.75rem; }
-    .ml-2 { margin-left: 0.5rem; }
-    .ml-3 { margin-left: 0.75rem; }
-    .space-y-2 > * + * { margin-top: 0.5rem; }
-    .space-y-3 > * + * { margin-top: 0.75rem; }
-    .space-y-4 > * + * { margin-top: 1rem; }
-    .space-y-5 > * + * { margin-top: 1.25rem; }
-    .space-y-6 > * + * { margin-top: 1.5rem; }
-    .max-w-lg { max-width: 32rem; margin-left: auto; margin-right: auto; }
-    .mx-auto { margin-left: auto; margin-right: auto; }
-    .text-xs { font-size: 0.75rem; line-height: 1rem; }
-    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-    .text-base { font-size: 1rem; line-height: 1.5rem; }
-    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
-    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-    .text-\[10px\] { font-size: 0.625rem; }
-    .text-\[11px\] { font-size: 0.6875rem; }
-    .font-headline { font-family: 'Manrope', sans-serif; }
-    .font-inter { font-family: 'Inter', sans-serif; }
-    .font-bold { font-weight: 700; }
-    .font-semibold { font-weight: 600; }
-    .font-medium { font-weight: 500; }
-    .font-extrabold { font-weight: 800; }
-    .uppercase { text-transform: uppercase; }
-    .tracking-wide { letter-spacing: 0.025em; }
-    .tracking-widest { letter-spacing: 0.1em; }
-    .tracking-tight { letter-spacing: -0.025em; }
-    .leading-none { line-height: 1; }
-    .leading-tight { line-height: 1.25; }
-    .leading-snug { line-height: 1.375; }
-    .leading-relaxed { line-height: 1.625; }
-    .text-center { text-align: center; }
-    .text-left { text-align: left; }
-    .text-right { text-align: right; }
-    .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .whitespace-nowrap { white-space: nowrap; }
-    .block { display: block; }
-    .inline-block { display: inline-block; }
-    .inline-flex { display: inline-flex; }
-    .hidden { display: none; }
-    .overflow-hidden { overflow: hidden; }
-    .overflow-x-auto { overflow-x: auto; }
-    .overflow-y-auto { overflow-y: auto; }
-    .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
-    .shadow-md { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); }
-    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
-    .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
-    .shadow-\[0_-4px_20px_rgba\(0\,0\,0\,0\.05\)\] { box-shadow: 0 -4px 20px rgba(0,0,0,0.05); }
-    .shadow-primary\/20 { --tw-shadow-color: rgba(0,59,153,0.2); }
-    .cursor-pointer { cursor: pointer; }
-    .pointer-events-none { pointer-events: none; }
-    .select-none { user-select: none; }
-    .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    .opacity-80 { opacity: 0.8; }
-    .opacity-60 { opacity: 0.6; }
-    .opacity-50 { opacity: 0.5; }
-    .opacity-30 { opacity: 0.3; }
-    .opacity-20 { opacity: 0.2; }
-    .opacity-10 { opacity: 0.1; }
-    .transition-all { transition: all 150ms cubic-bezier(0.2, 0, 0, 1); }
-    .transition-transform { transition: transform 150ms cubic-bezier(0.2, 0, 0, 1); }
-    .transition-colors { transition: color 150ms, background-color 150ms, border-color 150ms; }
-    .duration-200 { transition-duration: 200ms; }
-    .active\:scale-95:active { transform: scale(0.95); }
-    .active\:scale-\[0\.99\]:active { transform: scale(0.99); }
-    .active\:scale-98:active { transform: scale(0.98); }
-    .hover\:scale-105:hover { transform: scale(1.05); }
-    .hover\:shadow-md:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); }
-    .hover\:underline:hover { text-decoration: underline; }
-    .backdrop-blur-xl { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
-    .bg-white\/90 { background: rgba(255,255,255,0.9); }
-    .bg-white\/20 { background: rgba(255,255,255,0.2); }
-    .bg-white\/10 { background: rgba(255,255,255,0.1); }
-    .bg-black\/5 { background: rgba(0,0,0,0.05); }
-    .min-w-0 { min-width: 0; }
-    .max-h-60 { max-height: 15rem; }
-    .object-cover { object-fit: cover; }
-    .border-b { border-bottom-width: 1px; border-bottom-style: solid; }
-    .border-t { border-top-width: 1px; border-top-style: solid; }
-    .border-none { border: none; }
-    .ring-2 { box-shadow: 0 0 0 2px; }
-    .ring-white\/30 { --tw-ring-color: rgba(255,255,255,0.3); }
-    .outline-none { outline: none; }
-    .focus\:ring-2:focus { box-shadow: 0 0 0 2px; }
-    .focus\:ring-primary\/20:focus { --tw-ring-color: rgba(0,59,153,0.2); }
-    .blur-3xl { filter: blur(64px); }
-    .font-variation-settings\:'FILL'1\,'wght'400 { font-variation-settings: 'FILL' 1, 'wght' 400; }
-    /* BottomNavBar */
-    nav.fixed { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; background: rgba(255,255,255,0.9); backdrop-filter: blur(24px); border-top-left-radius: 24px; border-top-right-radius: 24px; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); }
   </style>
 </head>
-<body class="bg-surface text-on-surface antialiased min-h-screen">
+<body class="bg-surface text-on-surface antialiased">
 
-  <!-- ===================== TOP APP BAR ===================== -->
+  <!-- TopAppBar -->
   <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm h-16 flex justify-between items-center px-6">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" opacity="0.9"/>
-          <path d="M2 17l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M2 12l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-        </svg>
-      </div>
-      <span class="text-base font-headline font-semibold text-on-surface">我的中心</span>
-    </div>
+    <span class="text-lg font-bold text-blue-900 font-headline tracking-tight">我的</span>
+    <button class="p-2 rounded-full hover:bg-slate-100 transition-colors active:scale-95">
+      <span class="material-symbols-outlined text-slate-500 text-xl">settings</span>
+    </button>
   </header>
 
-  <!-- ===================== MAIN CONTENT ===================== -->
   <main class="pt-20 pb-28 px-5 max-w-lg mx-auto space-y-5">
 
     <!-- ====== 头像卡片 ====== -->
@@ -358,6 +166,7 @@
 
   <!-- BottomNavBar -->
   <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+    <!-- 收单 -->
     <a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2" href="慧展业_收单工作台_20260427.html">
       <span class="material-symbols-outlined" style="font-size:20px">home</span>
       <span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">收单</span>
@@ -367,6 +176,7 @@
       <span class="material-symbols-outlined" style="font-size:20px">auto_awesome</span>
       <span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">场景</span>
     </a>
+    <!-- 动态 -->
     <a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2" href="慧展业_动态消息列表_20260427.html">
       <span class="material-symbols-outlined" style="font-size:20px">dynamic_feed</span>
       <span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">动态</span>
@@ -377,6 +187,44 @@
       <span class="font-inter text-[10px] font-bold tracking-wide uppercase mt-1">我的</span>
     </a>
   </nav>
+
+  <!-- 退出确认弹窗 -->
+  <div id="logout-modal" class="fixed inset-0 z-[90] hidden">
+    <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" onclick="closeLogout()"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] bg-surface rounded-2xl p-6 shadow-2xl">
+      <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-red-600 text-2xl">logout</span>
+      </div>
+      <h2 class="font-headline font-bold text-lg text-on-surface text-center mb-2">确认退出</h2>
+      <p class="text-sm text-on-surface-variant text-center mb-6 leading-relaxed">确定要退出当前账号吗？</p>
+      <div class="flex gap-3">
+        <button onclick="closeLogout()" class="flex-1 py-3 rounded-full bg-surface-container text-on-surface-variant font-semibold text-sm active:scale-95 transition-all">取消</button>
+        <button onclick="confirmLogout()" class="flex-1 py-3 rounded-full bg-red-600 text-white font-bold text-sm shadow-sm active:scale-95 transition-all">确认退出</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-[100] bg-on-surface text-surface px-5 py-3 rounded-full text-sm font-medium shadow-lg opacity-0 pointer-events-none transition-all duration-300 -translate-y-2" style="max-width:calc(100vw - 80px)"></div>
+
+  <script>
+    function logout() { document.getElementById('logout-modal').classList.remove('hidden'); }
+    function closeLogout() { document.getElementById('logout-modal').classList.add('hidden'); }
+    function confirmLogout() {
+      closeLogout();
+      const el = document.getElementById('toast');
+      el.textContent = '已退出登录';
+      el.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+      el.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => location.href = '/', 1500);
+    }
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+      el.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => el.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none'), 2500);
+    }
+  </script>
 
 </body>
 </html>
