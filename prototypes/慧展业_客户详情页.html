@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3B82F6",
+            "primary-container": "#2563EB",
+            "surface": "#F7F9FC",
+            "surface-container-low": "#F2F4F7",
+            "surface-container": "#ECEEF1",
+            "surface-container-high": "#E6E8EB",
+            "surface-container-highest": "#E0E3E6",
+            "surface-container-lowest": "#FFFFFF",
+            "on-surface": "#191C1E",
+            "on-surface-variant": "#434653",
+            "outline-variant": "#C3C6D5",
+            "outline": "#737685",
+            "tertiary": "#732B00",
+            "secondary": "#4E5D88",
+            "secondary-container": "#BFCEFF",
+            "error": "#BA1A1A",
+            "error-container": "#FFDAD6",
+            "on-primary": "#FFFFFF",
+            "on-secondary-container": "#485781",
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    tailwind.init({ darkMode: 'class', theme: { extend: { colors: { primary: '#3B82F6', 'primary-container': '#2563EB', surface: '#F7F9FC', 'surface-container-low': '#F2F4F7', 'surface-container': '#ECEEF1', 'surface-container-high': '#E6E8EB', 'surface-container-highest': '#E0E3E6', 'surface-container-lowest': '#FFFFFF', 'on-surface': '#191C1E', 'on-surface-variant': '#434653', 'outline-variant': '#C3C6D5', outline: '#737685', tertiary: '#732B00', secondary: '#4E5D88', 'secondary-container': '#BFCEFF', 'on-secondary-container': '#485781', error: '#BA1A1A', 'error-container': '#FFDAD6', 'on-primary': '#FFFFFF' }, borderRadius: { DEFAULT: '0.25rem', lg: '1rem', xl: '1.5rem', full: '9999px' }, fontFamily: { headline: ['Manrope'], body: ['Inter'], label: ['Inter'] } } });
+  </script>
+  <style>
+    :root {
+      --motion-duration-short: 100ms;
+      --motion-duration-medium: 200ms;
+      --motion-duration-long: 350ms;
+      --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+
+  <!-- TopAppBar -->
+  <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm h-16 flex justify-between items-center px-6">
+    <div class="flex items-center gap-3">
+      <button onclick="history.back()" class="w-9 h-9 rounded-xl bg-primary-container flex items-center justify-center cursor-pointer transition-all active:scale-95">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <span class="font-headline font-bold text-base text-on-surface tracking-tight">客户详情</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <button onclick="toast('已标记重点')" class="p-2 rounded-xl hover:bg-surface-container transition-colors active:scale-95">
+        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">star</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-16 pb-28 max-w-lg mx-auto">
+
+    <!-- 客户基础信息卡片 -->
+    <div class="bg-gradient-to-br from-primary to-primary-container px-5 pt-6 pb-8">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+          <span id="customerInitial" class="font-headline font-bold text-white text-xl">张</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span id="customerName" class="font-headline font-bold text-white text-lg">张伟</span>
+            <span id="customerTypeTag" class="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 text-white">基金客户</span>
+            <span id="riskTag" class="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 text-white">平衡型</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-white/70">
+            <span id="customerPhone">138****8888</span>
+            <span class="w-px h-3 bg-white/30"></span>
+            <span>管户经理：王明</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="flex-1 text-center">
+          <p class="text-[10px] text-white/60 uppercase tracking-wider mb-0.5">总AUM</p>
+          <p id="customerAUM" class="font-headline font-bold text-white text-xl">50.2<span class="text-xs font-medium ml-0.5">万</span></p>
+        </div>
+        <div class="flex-1 text-center">
+          <p class="text-[10px] text-white/60 uppercase tracking-wider mb-0.5">客户分类</p>
+          <p id="customerCategory" class="font-headline font-bold text-white text-lg">潜力客户</p>
+        </div>
+        <div class="flex-1 text-center">
+          <p class="text-[10px] text-white/60 uppercase tracking-wider mb-0.5">最近活跃</p>
+          <p id="customerActive" class="font-headline font-bold text-white text-lg">3天</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 切换栏 -->
+    <div class="sticky top-16 z-30 bg-white/95 backdrop-blur-sm border-b border-outline-variant">
+      <div class="flex overflow-x-auto no-scrollbar">
+        <button onclick="switchTab(0)" class="tab-btn flex-1 min-w-[20%] flex flex-col items-center gap-0.5 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors">
+          <span class="text-xs font-medium">基本信息</span>
+        </button>
+        <button onclick="switchTab(1)" class="tab-btn flex-1 min-w-[20%] flex flex-col items-center gap-0.5 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors">
+          <span class="text-xs font-medium">持有产品</span>
+        </button>
+        <button onclick="switchTab(2)" class="tab-btn flex-1 min-w-[20%] flex flex-col items-center gap-0.5 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors">
+          <span class="text-xs font-medium">资产概况</span>
+        </button>
+        <button onclick="switchTab(3)" class="tab-btn flex-1 min-w-[20%] flex flex-col items-center gap-0.5 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors">
+          <span class="text-xs font-medium">互动记录</span>
+        </button>
+        <button onclick="switchTab(4)" class="tab-btn flex-1 min-w-[20%] flex flex-col items-center gap-0.5 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors">
+          <span class="text-xs font-medium">投资偏好</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab 内容区 -->
+    <div class="px-5 py-5 space-y-4">
+
+      <!-- Tab 0: 基本信息 -->
+      <div id="tab-content-0" class="tab-content space-y-3">
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <h3 class="font-headline font-semibold text-sm text-on-surface mb-3">基本信息</h3>
+          <div class="space-y-2.5">
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">姓名</span>
+              <span class="text-sm font-medium text-on-surface">张伟</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">手机号</span>
+              <span class="text-sm font-medium text-on-surface">138****8888</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">身份证</span>
+              <span class="text-sm font-medium text-on-surface">310***********1234</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">风险等级</span>
+              <span class="text-sm font-medium text-on-surface">平衡型</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">客户分类</span>
+              <span class="text-sm font-medium text-on-surface">潜力客户</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">管户经理</span>
+              <span class="text-sm font-medium text-on-surface">王明</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5">
+              <span class="text-xs text-on-surface-variant">开户时间</span>
+              <span class="text-sm font-medium text-on-surface">2023-06-15</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 1: 持有产品 -->
+      <div id="tab-content-1" class="tab-content hidden space-y-3">
+        <!-- 基金 -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-headline font-semibold text-sm text-on-surface">基金</h3>
+            <span class="text-xs text-on-surface-variant">余额合计 <span class="font-semibold text-primary">¥856万</span></span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center py-2 border-b border-outline-variant/50">
+              <div>
+                <p class="text-sm font-medium text-on-surface">华泰柏瑞沪深300C</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">份额：7894.42｜成本价：1.14</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-semibold text-on-surface">¥9,009.24</p>
+                <p class="text-xs text-green-400 mt-0.5">+12.5%</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-outline-variant/50">
+              <div>
+                <p class="text-sm font-medium text-on-surface">景顺万家有色C</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">份额：12441.30｜成本价：1.8085</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-semibold text-on-surface">¥22,492.12</p>
+                <p class="text-xs text-red-400 mt-0.5">-5.3%</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center py-2">
+              <div>
+                <p class="text-sm font-medium text-on-surface">南方有色E</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">份额：10888.91｜成本价：2.0663</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-semibold text-on-surface">¥22,492.19</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">成本约2.07</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 理财 -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-headline font-semibold text-sm text-on-surface">理财产品</h3>
+            <span class="text-xs text-on-surface-variant">余额合计 <span class="font-semibold text-primary">¥200万</span></span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center py-2 border-b border-outline-variant/50">
+              <div>
+                <p class="text-sm font-medium text-on-surface">稳盈尊享净值型</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">持有中｜风险：中低</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-semibold text-on-surface">¥150万</p>
+                <p class="text-xs text-green-400 mt-0.5">持有90天</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center py-2">
+              <div>
+                <p class="text-sm font-medium text-on-surface">慧赢成长净值型</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">持有中｜风险：中等</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-semibold text-on-surface">¥50万</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">持有30天</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 存款 -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-headline font-semibold text-sm text-on-surface">存款</h3>
+            <span class="text-xs text-on-surface-variant">余额合计 <span class="font-semibold text-primary">¥50万</span></span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center py-2">
+              <div>
+                <p class="text-sm font-medium text-on-surface">定期一年</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">2025-06-15到期</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-semibold text-on-surface">¥50万</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">年化1.95%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: 资产概况 -->
+      <div id="tab-content-2" class="tab-content hidden space-y-3">
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <h3 class="font-headline font-semibold text-sm text-on-surface mb-3">资产概览</h3>
+          <div class="grid grid-cols-3 gap-3 mb-4">
+            <div class="bg-surface-container rounded-xl p-3 text-center">
+              <p class="text-[10px] text-on-surface-variant mb-1">总AUM</p>
+              <p class="font-headline font-bold text-on-surface text-base">50.2<span class="text-xs font-medium">万</span></p>
+            </div>
+            <div class="bg-surface-container rounded-xl p-3 text-center">
+              <p class="text-[10px] text-on-surface-variant mb-1">三年峰值</p>
+              <p class="font-headline font-bold text-on-surface text-base">68<span class="text-xs font-medium">万</span></p>
+            </div>
+            <div class="bg-surface-container rounded-xl p-3 text-center">
+              <p class="text-[10px] text-on-surface-variant mb-1">近一年变化</p>
+              <p class="font-headline font-bold text-green-400 text-base">+12<span class="text-xs font-medium">%</span></p>
+            </div>
+          </div>
+          <!-- 持仓结构饼图（CSS实现） -->
+          <div class="flex items-center justify-center mb-4">
+            <div class="relative w-32 h-32">
+              <svg viewBox="0 0 36 36" class="w-full h-full">
+                <path d="M18 18.015 L18 2 A16 16 0 0 1 33.5 26 Z" fill="#3B82F6"/>
+                <path d="M18 18.015 L33.5 26 A16 16 0 0 1 8 33 Z" fill="#8B5CF6"/>
+                <path d="M18 18.015 L8 33 A16 16 0 0 1 2 10 Z" fill="#10B981"/>
+                <path d="M18 18.015 L2 10 A16 16 0 0 1 18 2 Z" fill="#F59E0B"/>
+                <circle cx="18" cy="18" r="8" fill="white"/>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span class="font-headline font-bold text-on-surface text-sm">50.2</span>
+                <span class="text-[10px] text-on-surface-variant">万</span>
+              </div>
+            </div>
+          </div>
+          <!-- 图例 -->
+          <div class="flex justify-center gap-4 text-xs">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-sm bg-primary"></span>
+              <span class="text-on-surface-variant">基金</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-sm bg-violet-500"></span>
+              <span class="text-on-surface-variant">理财</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-sm bg-green-500"></span>
+              <span class="text-on-surface-variant">存款</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-sm bg-amber-400"></span>
+              <span class="text-on-surface-variant">其他</span>
+            </div>
+          </div>
+        </div>
+        <!-- 历史趋势 -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <h3 class="font-headline font-semibold text-sm text-on-surface mb-3">近6月持仓趋势</h3>
+          <div class="flex items-end gap-1 h-24 justify-between px-2">
+            <div class="flex flex-col items-center gap-1 flex-1">
+              <div class="w-full bg-primary/20 rounded-t" style="height:40%"></div>
+              <span class="text-[9px] text-on-surface-variant">11月</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 flex-1">
+              <div class="w-full bg-primary/30 rounded-t" style="height:55%"></div>
+              <span class="text-[9px] text-on-surface-variant">12月</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 flex-1">
+              <div class="w-full bg-primary/40 rounded-t" style="height:65%"></div>
+              <span class="text-[9px] text-on-surface-variant">1月</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 flex-1">
+              <div class="w-full bg-primary/50 rounded-t" style="height:70%"></div>
+              <span class="text-[9px] text-on-surface-variant">2月</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 flex-1">
+              <div class="w-full bg-primary/60 rounded-t" style="height:75%"></div>
+              <span class="text-[9px] text-on-surface-variant">3月</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 flex-1">
+              <div class="w-full bg-primary rounded-t" style="height:100%"></div>
+              <span class="text-[9px] text-on-surface-variant">4月</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: 互动记录 -->
+      <div id="tab-content-3" class="tab-content hidden space-y-3">
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <h3 class="font-headline font-semibold text-sm text-on-surface mb-4">营销/维护历史</h3>
+          <div class="relative space-y-0">
+            <!-- 时间轴线 -->
+            <div class="absolute left-[15px] top-4 bottom-4 w-px bg-outline-variant"></div>
+            <!-- 记录1 -->
+            <div class="relative flex gap-3 pb-5">
+              <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center z-10">
+                  <span class="material-symbols-outlined text-primary" style="font-size:16px">call</span>
+                </div>
+              </div>
+              <div class="flex-1 pt-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-sm font-semibold text-on-surface">电话联系</span>
+                  <span class="text-xs text-on-surface-variant">2026-05-23 14:30</span>
+                </div>
+                <p class="text-xs text-on-surface-variant leading-relaxed">主动外呼，客户反馈近期有资金需求，考虑配置稳健型理财产品。已添加微信，后续跟进。</p>
+              </div>
+            </div>
+            <!-- 记录2 -->
+            <div class="relative flex gap-3 pb-5">
+              <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-8 h-8 rounded-full bg-secondary-container/50 flex items-center justify-center z-10">
+                  <span class="material-symbols-outlined text-secondary" style="font-size:16px">campaign</span>
+                </div>
+              </div>
+              <div class="flex-1 pt-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-sm font-semibold text-on-surface">产品推荐</span>
+                  <span class="text-xs text-on-surface-variant">2026-05-20 10:15</span>
+                </div>
+                <p class="text-xs text-on-surface-variant leading-relaxed">推荐景顺红利低波C基金，客户表示有兴趣，约定下周详谈。</p>
+              </div>
+            </div>
+            <!-- 记录3 -->
+            <div class="relative flex gap-3 pb-5">
+              <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center z-10">
+                  <span class="material-symbols-outlined text-green-600" style="font-size:16px">how_to_reg</span>
+                </div>
+              </div>
+              <div class="flex-1 pt-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-sm font-semibold text-on-surface">活动参与</span>
+                  <span class="text-xs text-on-surface-variant">2026-05-15 09:00</span>
+                </div>
+                <p class="text-xs text-on-surface-variant leading-relaxed">邀请参加"基金健诊"活动，客户到场并完成持仓分析。</p>
+              </div>
+            </div>
+            <!-- 记录4 -->
+            <div class="relative flex gap-3">
+              <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center z-10">
+                  <span class="material-symbols-outlined text-amber-600" style="font-size:16px">person_add</span>
+                </div>
+              </div>
+              <div class="flex-1 pt-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-sm font-semibold text-on-surface">面谈</span>
+                  <span class="text-xs text-on-surface-variant">2026-05-10 15:00</span>
+                </div>
+                <p class="text-xs text-on-surface-variant leading-relaxed">网点面谈，介绍新客专属理财计划，客户表示满意，将于近期转入资金。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: 投资偏好 -->
+      <div id="tab-content-4" class="tab-content hidden space-y-3">
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <h3 class="font-headline font-semibold text-sm text-on-surface mb-3">风险测评</h3>
+          <div class="flex items-center gap-3 p-3 bg-surface-container rounded-xl">
+            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary" style="font-size:24px">psychology</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-headline font-semibold text-on-surface">平衡型</p>
+              <p class="text-xs text-on-surface-variant mt-0.5">测评时间：2026-03-15｜有效期至2027-03-15</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm font-semibold text-primary">75分</p>
+              <p class="text-xs text-on-surface-variant">综合得分</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <h3 class="font-headline font-semibold text-sm text-on-surface mb-3">偏好板块</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-medium">科技成长</span>
+            <span class="px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium">新能源</span>
+            <span class="px-3 py-1.5 rounded-full bg-violet-50 text-violet-700 text-xs font-medium">消费</span>
+            <span class="px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 text-xs font-medium">有色金属</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <h3 class="font-headline font-semibold text-sm text-on-surface mb-3">持仓习惯</h3>
+          <div class="space-y-2.5">
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">平均持有周期</span>
+              <span class="text-sm font-medium text-on-surface">3-6个月</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-outline-variant/50">
+              <span class="text-xs text-on-surface-variant">投资风格</span>
+              <span class="text-sm font-medium text-on-surface">分散配置</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5">
+              <span class="text-xs text-on-surface-variant">偏好产品类型</span>
+              <span class="text-sm font-medium text-on-surface">基金 + 理财</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 底部操作栏 -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-outline-variant z-40" style="padding-bottom: env(safe-area-inset-bottom);">
+    <div class="max-w-lg mx-auto flex items-center justify-around py-3 px-4">
+      <button class="flex flex-col items-center gap-0.5 flex-1 cursor-pointer active:scale-95 transition-transform" onclick="toast('功能开发中')">
+        <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center mb-1">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">edit_note</span>
+        </div>
+        <span class="text-[10px] text-on-surface-variant font-medium">编辑</span>
+      </button>
+      <a href="tel:138****8888" class="flex flex-col items-center gap-0.5 flex-1 cursor-pointer active:scale-95 transition-transform">
+        <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center mb-1">
+          <span class="material-symbols-outlined text-white" style="font-size:18px">call</span>
+        </div>
+        <span class="text-[10px] text-on-surface-variant font-medium">拨打电话</span>
+      </a>
+      <button onclick="showInviteModal()" class="flex flex-col items-center gap-0.5 flex-1 cursor-pointer active:scale-95 transition-transform">
+        <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center mb-1">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">edit_calendar</span>
+        </div>
+        <span class="text-[10px] text-on-surface-variant font-medium">添加邀约</span>
+      </button>
+      <button onclick="toast('功能开发中')" class="flex flex-col items-center gap-0.5 flex-1 cursor-pointer active:scale-95 transition-transform">
+        <div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center mb-1">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">history</span>
+        </div>
+        <span class="text-[10px] text-on-surface-variant font-medium">客户动态</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 邀约弹窗 -->
+  <div id="inviteModal" class="hidden fixed inset-0 z-[100] bg-black/50 flex items-end justify-center" style="display:none" onclick="if(event.target===this)hideInviteModal()">
+    <div class="bg-white rounded-t-2xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-xl">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-outline-variant">
+        <span class="font-headline text-sm font-bold text-on-surface">添加邀约</span>
+        <button onclick="hideInviteModal()" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center cursor-pointer active:scale-95 transition-transform">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">close</span>
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-5 space-y-4">
+        <div>
+          <label class="block text-xs text-on-surface-variant mb-1.5">邀约日期</label>
+          <input type="date" id="inviteDate" class="w-full h-10 px-3 rounded-xl border border-outline bg-surface-container text-sm text-on-surface focus:outline-none focus:border-primary">
+        </div>
+        <div>
+          <label class="block text-xs text-on-surface-variant mb-1.5">邀约时间</label>
+          <input type="time" id="inviteTime" class="w-full h-10 px-3 rounded-xl border border-outline bg-surface-container text-sm text-on-surface focus:outline-none focus:border-primary" value="14:00">
+        </div>
+        <div>
+          <label class="block text-xs text-on-surface-variant mb-1.5">邀约方式</label>
+          <div class="flex gap-2">
+            <button onclick="selectInviteType(this, '电话联系')" class="invite-type-btn flex-1 h-10 rounded-xl border border-primary bg-primary/5 text-primary text-sm font-medium cursor-pointer active:scale-[0.98] transition-transform">电话联系</button>
+            <button onclick="selectInviteType(this, '面谈')" class="invite-type-btn flex-1 h-10 rounded-xl border border-outline text-on-surface-variant text-sm font-medium cursor-pointer active:scale-[0.98] transition-transform">面谈</button>
+            <button onclick="selectInviteType(this, '其他')" class="invite-type-btn flex-1 h-10 rounded-xl border border-outline text-on-surface-variant text-sm font-medium cursor-pointer active:scale-[0.98] transition-transform">其他</button>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-on-surface-variant mb-1.5">邀约事项</label>
+          <textarea id="inviteRemark" rows="3" maxlength="200" placeholder="请输入邀约事项（不超过200字）" class="w-full px-3 py-2.5 rounded-xl border border-outline bg-surface-container text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary resize-none"></textarea>
+        </div>
+      </div>
+      <div class="px-5 py-4 border-t border-outline-variant flex gap-3 flex-shrink-0">
+        <button onclick="hideInviteModal()" class="flex-1 h-10 rounded-xl border border-outline text-on-surface text-sm font-medium cursor-pointer active:scale-[0.98] transition-transform">取消</button>
+        <button onclick="submitInvite()" class="flex-1 h-10 rounded-xl bg-primary text-white text-sm font-semibold cursor-pointer active:scale-[0.98] transition-transform">确认添加</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var selectedInviteType = '电话联系';
+
+    function switchTab(index) {
+      document.querySelectorAll('.tab-content').forEach(function(el) {
+        el.classList.add('hidden');
+      });
+      document.getElementById('tab-content-' + index).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.classList.remove('text-primary', 'border-primary');
+        btn.classList.add('text-on-surface-variant', 'border-transparent');
+      });
+      var activeBtns = document.querySelectorAll('.tab-btn');
+      activeBtns[index].classList.remove('text-on-surface-variant', 'border-transparent');
+      activeBtns[index].classList.add('text-primary', 'border-primary');
+    }
+
+    function showInviteModal() {
+      document.getElementById('inviteModal').classList.remove('hidden');
+      document.getElementById('inviteModal').style.display = 'block';
+      selectedInviteType = '电话联系';
+      var tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      var dateInput = document.getElementById('inviteDate');
+      if (dateInput) dateInput.value = tomorrow.toISOString().slice(0,10);
+    }
+
+    function hideInviteModal() {
+      document.getElementById('inviteModal').classList.add('hidden');
+      document.getElementById('inviteModal').style.display = 'none';
+    }
+
+    function selectInviteType(el, type) {
+      selectedInviteType = type;
+      document.querySelectorAll('.invite-type-btn').forEach(function(btn) {
+        btn.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+        btn.classList.add('border-outline', 'text-on-surface-variant');
+      });
+      el.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+      el.classList.remove('border-outline', 'text-on-surface-variant');
+    }
+
+    function submitInvite() {
+      var date = document.getElementById('inviteDate').value;
+      if (!date) { toast('请选择邀约日期'); return; }
+      hideInviteModal();
+      toast('已添加邀约：' + date + ' ' + selectedInviteType);
+    }
+
+    function toast(msg) {
+      var el = document.createElement('div');
+      el.className = 'fixed top-20 left-1/2 -translate-x-1/2 bg-on-surface text-white px-4 py-2 rounded-xl text-sm z-[200] shadow-lg';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(function() { el.remove(); }, 2000);
+    }
+
+    // URL 参数初始化
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get('id') || 'C001';
+      var names = { C001:'张伟', C002:'李娜', C003:'王芳', C004:'刘洋', C005:'陈静', C006:'赵强', C007:'孙丽', C008:'周涛', C009:'吴婷', C010:'郑明', C011:'黄磊', C012:'杨雪', C013:'周勇', C014:'吴娟', C015:'徐鹏' };
+      var names0 = names[id] || '张伟';
+      document.getElementById('customerName').textContent = names0;
+      document.getElementById('customerInitial').textContent = names0[0];
+      var types = { C001:'基金客户', C002:'理财客户', C003:'混合客户', C004:'存款客户', C005:'基金客户', C006:'理财客户', C007:'混合客户', C008:'基金客户', C009:'理财客户', C010:'存款客户', C011:'基金客户', C012:'混合客户', C013:'理财客户', C014:'基金客户', C015:'存款客户' };
+      document.getElementById('customerTypeTag').textContent = types[id] || '基金客户';
+      switchTab(0);
+    })();
+  </script>
+</body>
+</html>
