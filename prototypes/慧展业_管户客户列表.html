@@ -197,8 +197,8 @@
       <button id="sortAUM" class="sort-chip" onclick="toggleSort('aum', this)">
         AUM <span class="arrow">▲</span>
       </button>
-      <button id="sortRisk" class="sort-chip" onclick="toggleSort('risk', this)">
-        风险等级 <span class="arrow">▲</span>
+      <button id="sortRisk" class="sort-chip" onclick="toggleSort('priority', this)">
+        优先级 <span class="arrow">▲</span>
       </button>
       <button onclick="toggleFilterModal()" class="ml-auto flex-shrink-0 w-9 h-9 rounded-full bg-surface-bg flex items-center justify-center cursor-pointer active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-muted" style="font-size:20px">tune</span>
@@ -279,22 +279,19 @@
       <div>
         <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">产品类型</div>
         <div class="flex flex-wrap gap-2">
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '基金客户')">基金客户</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '理财客户')">理财客户</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '存款客户')">存款客户</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '混合客户')">混合客户</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '理财产品')">理财产品</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '存款')">存款</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '基金')">基金</button>
         </div>
       </div>
 
-      <!-- 风险等级 -->
+      <!-- 优先级 -->
       <div>
-        <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">风险等级</div>
+        <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">优先级</div>
         <div class="flex flex-wrap gap-2">
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'risk', '保守型')">保守型</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'type', '稳健型')">稳健型</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'risk', '平衡型')">平衡型</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'risk', '成长型')">成长型</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'risk', '进取型')">进取型</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'priority', 'urgent')">🔥 紧急</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'priority', 'high')">⚠️ 优先</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'priority', 'normal')">○ 正常</button>
         </div>
       </div>
 
@@ -302,22 +299,23 @@
       <div>
         <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">客户分类</div>
         <div class="flex flex-wrap gap-2">
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '潜在客户')">潜在客户</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '私行客户')">私行客户</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '财富客户')">财富客户</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '创富客户')">创富客户</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '有效客户')">有效客户</button>
+          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '大众客户')">大众客户</button>
           <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '潜力客户')">潜力客户</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '核心客户')">核心客户</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'category', '休眠客户')">休眠客户</button>
         </div>
       </div>
 
-      <!-- 资产区间 -->
+      <!-- 资产区间（自定义） -->
       <div>
-        <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">资产区间</div>
-        <div class="flex flex-wrap gap-2">
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'asset', '<10万')">&lt;10万</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'asset', '10-50万')">10-50万</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'asset', '50-100万')">50-100万</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'asset', '100-500万')">100-500万</button>
-          <button class="filter-check-btn px-4 py-2 rounded-full border border-[#E2E8F0] text-sm text-navy bg-white cursor-pointer transition-all active:scale-[0.97]" onclick="toggleFilterCheck(this, 'asset', '>500万')">&gt;500万</button>
+        <div class="text-xs font-semibold text-muted uppercase tracking-wider mb-2">资产区间（万）</div>
+        <div class="flex items-center gap-2">
+          <input type="number" id="assetMin" class="flex-1 h-10 rounded-xl border border-[#E2E8F0] px-3 text-sm text-navy bg-white outline-none focus:border-[#2563EB]" placeholder="最低" oninput="onAssetRangeChange()"/>
+          <span class="text-sm text-muted">-</span>
+          <input type="number" id="assetMax" class="flex-1 h-10 rounded-xl border border-[#E2E8F0] px-3 text-sm text-navy bg-white outline-none focus:border-[#2563EB]" placeholder="最高" oninput="onAssetRangeChange()"/>
+          <span class="text-sm text-muted">万</span>
         </div>
       </div>
 
@@ -344,28 +342,28 @@
   <script>
     // ========== Mock Data ==========
     const allCustomers = [
-      { id: 'C001', name: '张伟',  phone: '138****8888', type: '基金客户', aum: 50.2,  activeDays: 3,  risk: '平衡型', category: '潜力客户', priority: 'high' },
-      { id: 'C002', name: '李娜',  phone: '139****9999', type: '理财客户', aum: 120.5, activeDays: 15, risk: '稳健型', category: '核心客户', priority: 'normal' },
-      { id: 'C003', name: '王芳',  phone: '136****1234', type: '混合客户', aum: 85.0,  activeDays: 7,  risk: '成长型', category: '潜力客户', priority: 'high' },
-      { id: 'C004', name: '刘洋',  phone: '137****5678', type: '存款客户', aum: 8.5,   activeDays: 45, risk: '保守型', category: '潜在客户', priority: 'normal' },
-      { id: 'C005', name: '陈静',  phone: '135****2345', type: '基金客户', aum: 200.0, activeDays: 1,  risk: '进取型', category: '核心客户', priority: 'urgent' },
-      { id: 'C006', name: '赵强',  phone: '158****6789', type: '理财客户', aum: 55.8,  activeDays: 22, risk: '平衡型', category: '潜力客户', priority: 'normal' },
-      { id: 'C007', name: '孙丽',  phone: '159****3456', type: '混合客户', aum: 150.0, activeDays: 5,  risk: '稳健型', category: '核心客户', priority: 'urgent' },
-      { id: 'C008', name: '周涛',  phone: '186****7890', type: '基金客户', aum: 32.0,  activeDays: 60, risk: '平衡型', category: '休眠客户', priority: 'normal' },
-      { id: 'C009', name: '吴婷',  phone: '187****0123', type: '理财客户', aum: 88.0,  activeDays: 10, risk: '成长型', category: '潜力客户', priority: 'high' },
-      { id: 'C010', name: '郑明',  phone: '188****4567', type: '存款客户', aum: 12.0,  activeDays: 95, risk: '保守型', category: '潜在客户', priority: 'normal' },
-      { id: 'C011', name: '黄磊',  phone: '189****8901', type: '基金客户', aum: 180.0, activeDays: 2,  risk: '进取型', category: '核心客户', priority: 'urgent' },
-      { id: 'C012', name: '杨雪',  phone: '135****5678', type: '混合客户', aum: 65.0,  activeDays: 18, risk: '稳健型', category: '潜力客户', priority: 'normal' },
-      { id: 'C013', name: '周勇',  phone: '136****9012', type: '理财客户', aum: 42.0,  activeDays: 30, risk: '平衡型', category: '潜力客户', priority: 'normal' },
-      { id: 'C014', name: '吴娟',  phone: '137****3456', type: '基金客户', aum: 95.0,  activeDays: 8,  risk: '成长型', category: '核心客户', priority: 'high' },
-      { id: 'C015', name: '徐鹏',  phone: '138****7890', type: '存款客户', aum: 6.0,   activeDays: 120, risk: '保守型', category: '休眠客户', priority: 'normal' },
+      { id: 'C001', name: '张伟',  phone: '138****8888', type: '基金',      aum: 50.2,  activeDays: 3,  priority: 'high',   category: '创富客户' },
+      { id: 'C002', name: '李娜',  phone: '139****9999', type: '理财产品', aum: 120.5, activeDays: 15, priority: 'normal', category: '私行客户' },
+      { id: 'C003', name: '王芳',  phone: '136****1234', type: '存款',     aum: 85.0,  activeDays: 7,  priority: 'high',   category: '财富客户' },
+      { id: 'C004', name: '刘洋',  phone: '137****5678', type: '基金',      aum: 8.5,   activeDays: 45, priority: 'normal', category: '大众客户' },
+      { id: 'C005', name: '陈静',  phone: '135****2345', type: '理财产品', aum: 200.0, activeDays: 1,  priority: 'urgent', category: '私行客户' },
+      { id: 'C006', name: '赵强',  phone: '158****6789', type: '存款',     aum: 55.8,  activeDays: 22, priority: 'normal', category: '有效客户' },
+      { id: 'C007', name: '孙丽',  phone: '159****3456', type: '基金',      aum: 150.0, activeDays: 5,  priority: 'urgent', category: '财富客户' },
+      { id: 'C008', name: '周涛',  phone: '186****7890', type: '理财产品', aum: 32.0,  activeDays: 60, priority: 'normal', category: '潜力客户' },
+      { id: 'C009', name: '吴婷',  phone: '187****0123', type: '存款',     aum: 88.0,  activeDays: 10, priority: 'high',   category: '创富客户' },
+      { id: 'C010', name: '郑明',  phone: '188****4567', type: '基金',      aum: 12.0,  activeDays: 95, priority: 'normal', category: '大众客户' },
+      { id: 'C011', name: '黄磊',  phone: '189****8901', type: '理财产品', aum: 180.0, activeDays: 2,  priority: 'urgent', category: '私行客户' },
+      { id: 'C012', name: '杨雪',  phone: '135****5678', type: '存款',     aum: 65.0,  activeDays: 18, priority: 'normal', category: '有效客户' },
+      { id: 'C013', name: '周勇',  phone: '136****9012', type: '基金',      aum: 42.0,  activeDays: 30, priority: 'normal', category: '创富客户' },
+      { id: 'C014', name: '吴娟',  phone: '137****3456', type: '理财产品', aum: 95.0,  activeDays: 8,  priority: 'high',   category: '财富客户' },
+      { id: 'C015', name: '徐鹏',  phone: '138****7890', type: '存款',     aum: 6.0,   activeDays: 120, priority: 'normal', category: '潜力客户' },
     ];
 
     // ========== State ==========
     let displayed = [...allCustomers];
     let sortKey = '';
     let sortDir = 'asc'; // 'asc' | 'desc'
-    let filters = { type: [], risk: [], category: [], asset: [], active: [] };
+    let filters = { type: [], priority: [], category: [], active: [] };
     let searchKeyword = '';
     let pageSize = 5;
     let displayedCount = 0;
@@ -397,7 +395,7 @@
       if (searchKeyword) result = filterBySearch(result);
       // Apply filters
       if (filters.type.length) result = result.filter(c => filters.type.includes(c.type));
-      if (filters.risk.length) result = result.filter(c => filters.risk.includes(c.risk));
+      if (filters.priority.length) result = result.filter(c => filters.priority.includes(c.priority));
       if (filters.category.length) result = result.filter(c => filters.category.includes(c.category));
       if (filters.active.length) {
         result = result.filter(c => {
@@ -409,21 +407,21 @@
           });
         });
       }
-      if (filters.asset.length) {
-        result = result.filter(c => {
-          return filters.asset.some(f => {
-            const ranges = { '<10万': [0, 10], '10-50万': [10, 50], '50-100万': [50, 100], '100-500万': [100, 500], '>500万': [500, Infinity] };
-            const [min, max] = ranges[f] || [0, Infinity];
-            return c.aum >= min && c.aum < max;
-          });
-        });
-      }
+      // Custom asset range
+      const minVal = parseFloat(document.getElementById('assetMin').value);
+      const maxVal = parseFloat(document.getElementById('assetMax').value);
+      if (!isNaN(minVal)) result = result.filter(c => c.aum >= minVal);
+      if (!isNaN(maxVal)) result = result.filter(c => c.aum <= maxVal);
       // Apply sort
       if (sortKey) {
         const dir = sortDir === 'asc' ? 1 : -1;
         result.sort((a, b) => {
           let va = a[sortKey], vb = b[sortKey];
           if (sortKey === 'aum') { va = +va; vb = +vb; }
+          if (sortKey === 'priority') {
+            const order = { urgent: 0, high: 1, normal: 2 };
+            va = order[va]; vb = order[vb];
+          }
           if (va < vb) return -1 * dir;
           if (va > vb) return 1 * dir;
           return 0;
@@ -432,6 +430,10 @@
       displayed = result;
       displayedCount = 0;
       renderList(true);
+    }
+
+    function onAssetRangeChange() {
+      refreshList();
     }
 
     function filterBySearch(list) {
@@ -481,7 +483,9 @@
     }
 
     function resetFilters() {
-      filters = { type: [], risk: [], category: [], asset: [], active: [] };
+      filters = { type: [], priority: [], category: [], active: [] };
+      document.getElementById('assetMin').value = '';
+      document.getElementById('assetMax').value = '';
       document.querySelectorAll('.filter-check-btn').forEach(btn => {
         btn.classList.remove('active-check');
         btn.style.background = 'white';
@@ -501,7 +505,7 @@
       const tags = [];
       for (const [key, values] of Object.entries(filters)) {
         values.forEach(val => {
-          const labelMap = { type: '类型', risk: '风险', category: '分类', asset: '资产', active: '活跃' };
+          const labelMap = { type: '类型', priority: '优先级', category: '分类', active: '活跃' };
           tags.push(`<span class="active-filter-tag">${labelMap[key] || key}: ${val}<span class="close-btn" onclick="removeFilter('${key}', '${val}')">✕</span></span>`);
         });
       }
@@ -528,7 +532,7 @@
       if (searchKeyword) result = filterBySearch(result);
       // Apply filters
       if (filters.type.length) result = result.filter(c => filters.type.includes(c.type));
-      if (filters.risk.length) result = result.filter(c => filters.risk.includes(c.risk));
+      if (filters.priority.length) result = result.filter(c => filters.priority.includes(c.priority));
       if (filters.category.length) result = result.filter(c => filters.category.includes(c.category));
       if (filters.active.length) {
         result = result.filter(c => {
@@ -540,15 +544,10 @@
           });
         });
       }
-      if (filters.asset.length) {
-        result = result.filter(c => {
-          return filters.asset.some(f => {
-            const ranges = { '<10万': [0, 10], '10-50万': [10, 50], '50-100万': [50, 100], '100-500万': [100, 500], '>500万': [500, Infinity] };
-            const [min, max] = ranges[f] || [0, Infinity];
-            return c.aum >= min && c.aum < max;
-          });
-        });
-      }
+      const minVal = parseFloat(document.getElementById('assetMin').value);
+      const maxVal = parseFloat(document.getElementById('assetMax').value);
+      if (!isNaN(minVal)) result = result.filter(c => c.aum >= minVal);
+      if (!isNaN(maxVal)) result = result.filter(c => c.aum <= maxVal);
       displayed = result;
       displayedCount = 0;
       renderList(true);
@@ -586,7 +585,7 @@
                 <div class="flex items-center gap-2 mb-0.5">
                   <span class="font-semibold text-navy text-sm">${c.name}</span>
                   <span class="tag ${tagClass}">${tagText}</span>
-                  <span class="tag tag-blue text-[10px]">${c.type}</span>
+                  <span class="tag tag-blue text-[10px]">${c.category}</span>
                 </div>
                 <div class="flex items-center gap-3 text-xs text-muted">
                   <span>${c.phone}</span>
