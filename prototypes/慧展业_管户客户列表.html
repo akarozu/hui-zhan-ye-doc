@@ -127,7 +127,7 @@
             <span id="typeFilterLabel">产品类型</span>
             <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
           </button>
-          <div id="typeFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
+          <div id="typeFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]" onclick="event.stopPropagation()">
             <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
               <input type="checkbox" class="w-4 h-4 rounded border-outline text-primary" value="基金客户" onchange="applyFilter('type', this)"/>
               <span class="text-sm text-on-surface">基金客户</span>
@@ -152,7 +152,7 @@
             <span id="riskFilterLabel">风险等级</span>
             <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
           </button>
-          <div id="riskFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
+          <div id="riskFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]" onclick="event.stopPropagation()">
             <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
               <input type="radio" name="risk" class="w-4 h-4 border-outline text-primary" value="保守型" onchange="applyFilter('risk', this)"/>
               <span class="text-sm text-on-surface">保守型</span>
@@ -181,7 +181,7 @@
             <span id="categoryFilterLabel">客户分类</span>
             <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
           </button>
-          <div id="categoryFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
+          <div id="categoryFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]" onclick="event.stopPropagation()">
             <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
               <input type="radio" name="category" class="w-4 h-4 border-outline text-primary" value="潜在客户" onchange="applyFilter('category', this)"/>
               <span class="text-sm text-on-surface">潜在客户</span>
@@ -206,7 +206,7 @@
             <span id="activeFilterLabel">活跃时间</span>
             <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
           </button>
-          <div id="activeFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[140px]">
+          <div id="activeFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[140px]" onclick="event.stopPropagation()">
             <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
               <input type="radio" name="active" class="w-4 h-4 border-outline text-primary" value="近7天" onchange="applyFilter('active', this)"/>
               <span class="text-sm text-on-surface">近7天</span>
@@ -231,7 +231,7 @@
             <span id="assetFilterLabel">资产区间</span>
             <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
           </button>
-          <div id="assetFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
+          <div id="assetFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]" onclick="event.stopPropagation()">
             <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
               <input type="radio" name="asset" class="w-4 h-4 border-outline text-primary" value="<10万" onchange="applyFilter('asset', this)"/>
               <span class="text-sm text-on-surface">&lt;10万</span>
@@ -514,7 +514,7 @@
     }
 
     function openCustomerDetail(id) {
-      window.open(`慧展业_客户详情页.html?id=${id}`, '_blank');
+      location.href = `慧展业_客户详情页.html?id=${id}`;
     }
 
     // ========== 滚屏加载 ==========
