@@ -200,31 +200,6 @@
             </label>
           </div>
         </div>
-        <!-- 最近活跃 -->
-        <div class="relative flex-shrink-0">
-          <button onclick="toggleFilter(this, 'activeFilter')" class="filter-chip h-9 pr-7">
-            <span id="activeFilterLabel">活跃时间</span>
-            <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
-          </button>
-          <div id="activeFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[140px]">
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="active" class="w-4 h-4 border-outline text-primary" value="近7天" onchange="applyFilter('active', this)"/>
-              <span class="text-sm text-on-surface">近7天</span>
-            </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="active" class="w-4 h-4 border-outline text-primary" value="近30天" onchange="applyFilter('active', this)"/>
-              <span class="text-sm text-on-surface">近30天</span>
-            </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="active" class="w-4 h-4 border-outline text-primary" value="近90天" onchange="applyFilter('active', this)"/>
-              <span class="text-sm text-on-surface">近90天</span>
-            </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="active" class="w-4 h-4 border-outline text-primary" value="90天以上" onchange="applyFilter('active', this)"/>
-              <span class="text-sm text-on-surface">90天以上</span>
-            </label>
-          </div>
-        </div>
         <!-- 资产区间 -->
         <div class="relative flex-shrink-0">
           <button onclick="toggleFilter(this, 'assetFilter')" class="filter-chip h-9 pr-7">
@@ -339,14 +314,17 @@
 
     // ========== 状态管理 ==========
     let filteredCustomers = [...allCustomers];
-    let filters = { type: [], risk: '', category: '', active: '', asset: '' };
+    let filters = { type: [], risk: '', category: '', asset: '' };
     let pageSize = 5;
     let displayedCount = 0;
 
     // ========== 筛选器切换 ==========
+    var activeFilterId = null;
     function toggleFilter(btn, filterId) {
+      // 阻止事件冒泡，防止触发 document click 关闭
+      event.stopPropagation();
       // 关闭其他筛选器
-      ['typeFilter', 'riskFilter', 'categoryFilter', 'activeFilter', 'assetFilter'].forEach(id => {
+      ['typeFilter', 'riskFilter', 'categoryFilter', 'assetFilter'].forEach(id => {
         if (id !== filterId) {
           const el = document.getElementById(id);
           if (el) el.classList.add('hidden');
@@ -354,13 +332,20 @@
       });
       const target = document.getElementById(filterId);
       if (target) {
-        target.classList.toggle('hidden');
+        if (target.classList.contains('hidden')) {
+          target.classList.remove('hidden');
+          activeFilterId = filterId;
+        } else {
+          target.classList.add('hidden');
+          activeFilterId = null;
+        }
       }
       // 点击外部关闭
-      setTimeout(() => {
+      setTimeout(function() {
         document.addEventListener('click', function closeFilter(e) {
-          if (!btn.parentElement.contains(e.target) && !target.contains(e.target)) {
-            target.classList.add('hidden');
+          if (activeFilterId && !document.getElementById(activeFilterId).contains(e.target) && !e.target.closest('.filter-chip')) {
+            document.getElementById(activeFilterId).classList.add('hidden');
+            activeFilterId = null;
             document.removeEventListener('click', closeFilter);
           }
         });
@@ -376,7 +361,7 @@
         document.querySelector('[onclick="toggleFilter(this, \'typeFilter\')"]').classList.toggle('selected', checked.length > 0);
       } else {
         filters[type] = input.value;
-        const labelMap = { risk: '风险等级', category: '客户分类', active: '活跃时间', asset: '资产区间' };
+        const labelMap = { risk: '风险等级', category: '客户分类', asset: '资产区间' };
         document.getElementById(type + 'FilterLabel').textContent = input.value;
         document.querySelector(`[onclick="toggleFilter(this, '${type}Filter')"]`).classList.add('selected');
       }
@@ -392,9 +377,8 @@
       const row = document.getElementById('activeFiltersRow');
       const items = [];
       if (filters.type.length) items.push({ label: '产品类型', value: filters.type.join(','), key: 'type' });
-      if (filters.risk) items.push({ label: '风险等级', value: filters.risk, key: 'risk' });
       if (filters.category) items.push({ label: '客户分类', value: filters.category, key: 'category' });
-      if (filters.active) items.push({ label: '活跃时间', value: filters.active, key: 'active' });
+      if (filters.risk) items.push({ label: '风险等级', value: filters.risk, key: 'risk' });
       if (filters.asset) items.push({ label: '资产区间', value: filters.asset, key: 'asset' });
 
       if (items.length === 0) {
@@ -421,9 +405,9 @@
         document.querySelector('[onclick="toggleFilter(this, \'typeFilter\')"]').classList.remove('selected');
       } else {
         filters[key] = '';
-        const labelMap = { risk: '风险等级', category: '客户分类', active: '活跃时间', asset: '资产区间' };
+        const labelMap = { risk: '风险等级', category: '客户分类', asset: '资产区间' };
         document.getElementById(key + 'FilterLabel').textContent = labelMap[key];
-        document.querySelectorAll(`#${key}Filter input`).forEach(i => i.checked = false);
+        document.querySelectorAll(`#${key}Filter input`).forEach(function(i) { i.checked = false; });
         document.querySelector(`[onclick="toggleFilter(this, '${key}Filter')"]`).classList.remove('selected');
       }
       updateActiveFiltersRow();
@@ -435,12 +419,6 @@
         if (filters.type.length && !filters.type.includes(c.type)) return false;
         if (filters.risk && c.risk !== filters.risk) return false;
         if (filters.category && c.category !== filters.category) return false;
-        if (filters.active) {
-          const map = { '近7天': 7, '近30天': 30, '近90天': 90, '90天以上': 91 };
-          const threshold = map[filters.active];
-          if (filters.active === '90天以上' && c.activeDays <= 90) return false;
-          if (filters.active !== '90天以上' && c.activeDays > threshold) return false;
-        }
         if (filters.asset) {
           const ranges = { '<10万': [0, 10], '10-50万': [10, 50], '50-100万': [50, 100], '100-500万': [100, 500], '>500万': [500, Infinity] };
           const [min, max] = ranges[filters.asset] || [0, Infinity];
@@ -514,7 +492,7 @@
     }
 
     function openCustomerDetail(id) {
-      window.open(`慧展业_客户详情页.html?id=${id}`, '_blank');
+      window.open('https://akarozu.github.io/hui-zhan-ye-doc/管户客户查询/prototypes/慧展业_客户详情页.html?id=' + id, '_blank');
     }
 
     // ========== 滚屏加载 ==========
