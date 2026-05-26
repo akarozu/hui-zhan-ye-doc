@@ -154,24 +154,26 @@
             </svg>
           </button>
           <!-- 下拉面板 -->
-          <div id="typeFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[180px]">
+          <div id="typeFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-[60]" onclick="event.stopPropagation()">
             <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">产品类型</div>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="基金客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
-              <span class="text-sm text-navy">基金客户</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="理财客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
-              <span class="text-sm text-navy">理财客户</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="存款客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
-              <span class="text-sm text-navy">存款客户</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="混合客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
-              <span class="text-sm text-navy">混合客户</span>
-            </label>
+            <div class="py-1">
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="基金客户" onclick="applyChipFilter('type', 'typeFilter')"/>
+                <span class="text-sm text-navy">基金客户</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="理财客户" onclick="applyChipFilter('type', 'typeFilter')"/>
+                <span class="text-sm text-navy">理财客户</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="存款客户" onclick="applyChipFilter('type', 'typeFilter')"/>
+                <span class="text-sm text-navy">存款客户</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="混合客户" onclick="applyChipFilter('type', 'typeFilter')"/>
+                <span class="text-sm text-navy">混合客户</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -186,28 +188,30 @@
               <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div id="riskFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[140px]">
+          <div id="riskFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-[60]" onclick="event.stopPropagation()">
             <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">风险等级</div>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="保守型" onclick="event.stopPropagation(); applySingleFilter('risk', '保守型', 'riskFilter')"/>
-              <span class="text-sm text-navy">保守型</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="稳健型" onclick="event.stopPropagation(); applySingleFilter('risk', '稳健型', 'riskFilter')"/>
-              <span class="text-sm text-navy">稳健型</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="平衡型" onclick="event.stopPropagation(); applySingleFilter('risk', '平衡型', 'riskFilter')"/>
-              <span class="text-sm text-navy">平衡型</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="成长型" onclick="event.stopPropagation(); applySingleFilter('risk', '成长型', 'riskFilter')"/>
-              <span class="text-sm text-navy">成长型</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="进取型" onclick="event.stopPropagation(); applySingleFilter('risk', '进取型', 'riskFilter')"/>
-              <span class="text-sm text-navy">进取型</span>
-            </label>
+            <div class="py-1">
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="保守型" onclick="applySingleFilter('risk', '保守型', 'riskFilter')"/>
+                <span class="text-sm text-navy">保守型</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="稳健型" onclick="applySingleFilter('risk', '稳健型', 'riskFilter')"/>
+                <span class="text-sm text-navy">稳健型</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="平衡型" onclick="applySingleFilter('risk', '平衡型', 'riskFilter')"/>
+                <span class="text-sm text-navy">平衡型</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="成长型" onclick="applySingleFilter('risk', '成长型', 'riskFilter')"/>
+                <span class="text-sm text-navy">成长型</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="进取型" onclick="applySingleFilter('risk', '进取型', 'riskFilter')"/>
+                <span class="text-sm text-navy">进取型</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -222,24 +226,26 @@
               <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div id="categoryFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[140px]">
+          <div id="categoryFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-[60]" onclick="event.stopPropagation()">
             <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">客户分类</div>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="潜在客户" onclick="event.stopPropagation(); applySingleFilter('category', '潜在客户', 'categoryFilter')"/>
-              <span class="text-sm text-navy">潜在客户</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="潜力客户" onclick="event.stopPropagation(); applySingleFilter('category', '潜力客户', 'categoryFilter')"/>
-              <span class="text-sm text-navy">潜力客户</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="核心客户" onclick="event.stopPropagation(); applySingleFilter('category', '核心客户', 'categoryFilter')"/>
-              <span class="text-sm text-navy">核心客户</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="休眠客户" onclick="event.stopPropagation(); applySingleFilter('category', '休眠客户', 'categoryFilter')"/>
-              <span class="text-sm text-navy">休眠客户</span>
-            </label>
+            <div class="py-1">
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="潜在客户" onclick="applySingleFilter('category', '潜在客户', 'categoryFilter')"/>
+                <span class="text-sm text-navy">潜在客户</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="潜力客户" onclick="applySingleFilter('category', '潜力客户', 'categoryFilter')"/>
+                <span class="text-sm text-navy">潜力客户</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="核心客户" onclick="applySingleFilter('category', '核心客户', 'categoryFilter')"/>
+                <span class="text-sm text-navy">核心客户</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="休眠客户" onclick="applySingleFilter('category', '休眠客户', 'categoryFilter')"/>
+                <span class="text-sm text-navy">休眠客户</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -254,28 +260,30 @@
               <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div id="assetFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[140px]">
+          <div id="assetFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-[60]" onclick="event.stopPropagation()">
             <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">资产区间</div>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="<10万" onclick="event.stopPropagation(); applySingleFilter('asset', '<10万', 'assetFilter')"/>
-              <span class="text-sm text-navy">&lt;10万</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="10-50万" onclick="event.stopPropagation(); applySingleFilter('asset', '10-50万', 'assetFilter')"/>
-              <span class="text-sm text-navy">10-50万</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="50-100万" onclick="event.stopPropagation(); applySingleFilter('asset', '50-100万', 'assetFilter')"/>
-              <span class="text-sm text-navy">50-100万</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="100-500万" onclick="event.stopPropagation(); applySingleFilter('asset', '100-500万', 'assetFilter')"/>
-              <span class="text-sm text-navy">100-500万</span>
-            </label>
-            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
-              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value=">500万" onclick="event.stopPropagation(); applySingleFilter('asset', '>500万', 'assetFilter')"/>
-              <span class="text-sm text-navy">&gt;500万</span>
-            </label>
+            <div class="py-1">
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="<10万" onclick="applySingleFilter('asset', '<10万', 'assetFilter')"/>
+                <span class="text-sm text-navy">&lt;10万</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="10-50万" onclick="applySingleFilter('asset', '10-50万', 'assetFilter')"/>
+                <span class="text-sm text-navy">10-50万</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="50-100万" onclick="applySingleFilter('asset', '50-100万', 'assetFilter')"/>
+                <span class="text-sm text-navy">50-100万</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="100-500万" onclick="applySingleFilter('asset', '100-500万', 'assetFilter')"/>
+                <span class="text-sm text-navy">100-500万</span>
+              </label>
+              <label class="flex items-center gap-3 py-2 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+                <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value=">500万" onclick="applySingleFilter('asset', '>500万', 'assetFilter')"/>
+                <span class="text-sm text-navy">&gt;500万</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
