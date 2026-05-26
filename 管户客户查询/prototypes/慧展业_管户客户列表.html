@@ -3,248 +3,297 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script id="tailwind-config">
+  <title>管户客户查询</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
     tailwind.config = {
-      darkMode: "class",
       theme: {
         extend: {
           colors: {
-            "primary": "#3B82F6",
-            "primary-container": "#2563EB",
-            "surface": "#F7F9FC",
-            "surface-container-low": "#F2F4F7",
-            "surface-container": "#ECEEF1",
-            "surface-container-high": "#E6E8EB",
-            "surface-container-highest": "#E0E3E6",
-            "surface-container-lowest": "#FFFFFF",
-            "on-surface": "#191C1E",
-            "on-surface-variant": "#434653",
-            "outline-variant": "#C3C6D5",
-            "outline": "#737685",
-            "tertiary": "#732B00",
-            "secondary": "#4E5D88",
-            "secondary-container": "#BFCEFF",
-            "error": "#BA1A1A",
-            "error-container": "#FFDAD6",
-            "on-primary": "#FFFFFF",
-            "on-secondary-container": "#485781",
-          },
-          borderRadius: {
-            "DEFAULT": "0.25rem",
-            "lg": "1rem",
-            "xl": "1.5rem",
-            "full": "9999px"
+            primary: { DEFAULT: '#2563EB', dark: '#1D4ED8', light: '#3B82F6' },
+            accent: '#10B981',
+            'accent-bg': '#dcfce7',
+            warning: '#F59E0B',
+            'warning-bg': '#fef3c7',
+            error: '#EF4444',
+            'error-bg': '#fee2e2',
+            surface: '#FFFFFF',
+            'surface-bg': '#F8FAFC',
+            muted: '#64748B',
+            border: '#E2E8F0',
+            navy: '#0F172A',
           },
           fontFamily: {
-            "headline": ["Manrope"],
-            "body": ["Inter"],
-            "label": ["Inter"]
-          }
+            sans: ['IBM Plex Sans', 'Noto Sans SC', 'sans-serif'],
+            mono: ['D-DIN-PRO', 'IBM Plex Mono', 'monospace'],
+          },
         }
       }
     }
   </script>
-  <script>
-    tailwind.init({ darkMode: 'class', theme: { extend: { colors: { primary: '#3B82F6', 'primary-container': '#2563EB', surface: '#F7F9FC', 'surface-container-low': '#F2F4F7', 'surface-container': '#ECEEF1', 'surface-container-high': '#E6E8EB', 'surface-container-highest': '#E0E3E6', 'surface-container-lowest': '#FFFFFF', 'on-surface': '#191C1E', 'on-surface-variant': '#434653', 'outline-variant': '#C3C6D5', outline: '#737685', tertiary: '#732B00', secondary: '#4E5D88', 'secondary-container': '#BFCEFF', 'on-secondary-container': '#485781', error: '#BA1A1A', 'error-container': '#FFDAD6', 'on-primary': '#FFFFFF' }, borderRadius: { DEFAULT: '0.25rem', lg: '1rem', xl: '1.5rem', full: '9999px' }, fontFamily: { headline: ['Manrope'], body: ['Inter'], label: ['Inter'] } } });
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --motion-duration-short: 100ms;
-      --motion-duration-medium: 200ms;
-      --motion-duration-long: 350ms;
-      --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    body {
+      font-family: 'IBM Plex Sans', 'Noto Sans SC', sans-serif;
+      background: #F8FAFC;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
     }
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-    h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Chip 筛选器 */
+    /* 筛选 Chip */
     .filter-chip {
       display: inline-flex; align-items: center; gap: 4px;
-      padding: 6px 12px; border-radius: 20px;
-      font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif;
-      border: 1px solid var(--color-outline, #737685);
-      background: var(--color-surface-container-lowest, #FFFFFF);
-      color: var(--color-on-surface-variant, #434653);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px; font-weight: 500;
+      border: 1.5px solid #E2E8F0;
+      background: #FFFFFF;
+      color: #64748B;
       cursor: pointer;
-      transition: all var(--motion-duration-short) var(--motion-easing-standard);
       white-space: nowrap;
+      transition: all 150ms;
+      flex-shrink: 0;
     }
-    .filter-chip:hover { background: var(--color-surface-container-high, #E6E8EB); }
-    .filter-chip.selected {
-      background: var(--color-primary, #3B82F6);
-      color: var(--color-on-primary, #FFFFFF);
-      border-color: transparent;
+    .filter-chip:hover { border-color: #2563EB; color: #2563EB; }
+    .filter-chip.active {
+      background: #2563EB;
+      border-color: #2563EB;
+      color: #FFFFFF;
     }
-    .filter-chip.selected:hover { background: var(--color-primary-container, #2563EB); }
+    .filter-chip .check-icon { display: none; }
+    .filter-chip.active .check-icon { display: inline; }
 
-    /* 加载动画 */
+    /* 卡片 */
+    .customer-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+      padding: 16px;
+      cursor: pointer;
+      transition: transform 150ms, box-shadow 150ms;
+    }
+    .customer-card:hover { box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.10); }
+    .customer-card:active { transform: scale(0.98); }
+
+    /* 骨架屏 */
     @keyframes shimmer {
       0% { background-position: -200% 0; }
       100% { background-position: 200% 0; }
     }
     .skeleton {
-      background: linear-gradient(90deg, #ECEEF1 25%, #F7F9FC 50%, #ECEEF1 75%);
+      background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
       border-radius: 8px;
     }
+
+    /* Tag */
+    .tag {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 11px; font-weight: 500;
+      padding: 2px 8px; border-radius: 999px;
+    }
+    .tag-blue { background: #dbeafe; color: #2563EB; }
+    .tag-green { background: #dcfce7; color: #10B981; }
+    .tag-orange { background: #fef3c7; color: #D97706; }
+    .tag-gray { background: #f1f5f9; color: #64748B; }
+
+    /* Toast */
+    .toast {
+      position: fixed; top: 72px; left: 50%; transform: translateX(-50%);
+      background: #0F172A; color: white;
+      padding: 10px 20px; border-radius: 999px;
+      font-size: 13px; font-weight: 500;
+      z-index: 200; pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    /* 数字等宽 */
+    .num { font-family: 'D-DIN-PRO', 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
   </style>
 </head>
-<body class="bg-surface text-on-surface antialiased">
+<body>
 
   <!-- TopAppBar -->
-  <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm h-16 flex justify-between items-center px-6">
+  <header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-[#E2E8F0] h-14 flex justify-between items-center px-4">
     <div class="flex items-center gap-3">
-      <button onclick="history.back()" class="w-9 h-9 rounded-xl bg-primary-container flex items-center justify-center cursor-pointer transition-all active:scale-95">
+      <button onclick="history.back()" class="w-9 h-9 rounded-full bg-[#2563EB] flex items-center justify-center cursor-pointer active:scale-95 transition-transform">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <span class="font-headline font-bold text-base text-on-surface tracking-tight">管户客户</span>
+      <span class="font-semibold text-base text-navy tracking-tight">管户客户</span>
     </div>
     <div class="flex items-center gap-1">
-      <button onclick="toast('搜索')" class="p-2 rounded-xl hover:bg-surface-container transition-colors active:scale-95">
-        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">search</span>
+      <button onclick="toast('搜索')" class="p-2 rounded-full hover:bg-[#F1F5F9] transition-colors active:scale-95">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="7" stroke="#64748B" stroke-width="2"/>
+          <path d="M16.5 16.5L21 21" stroke="#64748B" stroke-width="2" stroke-linecap="round"/>
+        </svg>
       </button>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="pt-16 pb-28 px-5 max-w-lg mx-auto">
+  <main class="pt-14 pb-28 px-4 max-w-lg mx-auto">
 
-    <!-- 筛选栏：5个筛选项横向排列，可滚动 -->
-    <div class="sticky top-16 z-30 bg-surface/95 backdrop-blur-sm py-3 -mx-5 px-5 mb-1">
-      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-        <!-- 产品类型 -->
+    <!-- 筛选栏 -->
+    <div class="sticky top-14 z-30 bg-[#F8FAFC]/95 backdrop-blur py-3 -mx-4 px-4 mb-4">
+      <div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
+        <!-- 产品类型（多选） -->
         <div class="relative flex-shrink-0">
-          <button onclick="toggleFilter(this, 'typeFilter')" class="filter-chip h-9 pr-7">
-            <span id="typeFilterLabel">产品类型</span>
-            <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
+          <button onclick="toggleFilterPanel('typeFilter')" class="filter-chip h-8 pr-3" id="typeChip">
+            <svg class="check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="typeChipLabel">产品类型</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="chevron">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
-          <div id="typeFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="checkbox" class="w-4 h-4 rounded border-outline text-primary" value="基金客户" onchange="applyFilter('type', this)"/>
-              <span class="text-sm text-on-surface">基金客户</span>
+          <!-- 下拉面板 -->
+          <div id="typeFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[180px]">
+            <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">产品类型</div>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="基金客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
+              <span class="text-sm text-navy">基金客户</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="checkbox" class="w-4 h-4 rounded border-outline text-primary" value="理财客户" onchange="applyFilter('type', this)"/>
-              <span class="text-sm text-on-surface">理财客户</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="理财客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
+              <span class="text-sm text-navy">理财客户</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="checkbox" class="w-4 h-4 rounded border-outline text-primary" value="存款客户" onchange="applyFilter('type', this)"/>
-              <span class="text-sm text-on-surface">存款客户</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="存款客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
+              <span class="text-sm text-navy">存款客户</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="checkbox" class="w-4 h-4 rounded border-outline text-primary" value="混合客户" onchange="applyFilter('type', this)"/>
-              <span class="text-sm text-on-surface">混合客户</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="checkbox" class="w-4 h-4 rounded border-[#E2E8F0] accent-[#2563EB]" value="混合客户" onclick="event.stopPropagation(); applyChipFilter('type', 'typeFilter')"/>
+              <span class="text-sm text-navy">混合客户</span>
             </label>
           </div>
         </div>
+
         <!-- 风险等级 -->
         <div class="relative flex-shrink-0">
-          <button onclick="toggleFilter(this, 'riskFilter')" class="filter-chip h-9 pr-7">
-            <span id="riskFilterLabel">风险等级</span>
-            <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
+          <button onclick="toggleFilterPanel('riskFilter')" class="filter-chip h-8 pr-3" id="riskChip">
+            <svg class="check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="riskChipLabel">风险等级</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="chevron">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
-          <div id="riskFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="risk" class="w-4 h-4 border-outline text-primary" value="保守型" onchange="applyFilter('risk', this)"/>
-              <span class="text-sm text-on-surface">保守型</span>
+          <div id="riskFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[140px]">
+            <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">风险等级</div>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="保守型" onclick="event.stopPropagation(); applySingleFilter('risk', '保守型', 'riskFilter')"/>
+              <span class="text-sm text-navy">保守型</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="risk" class="w-4 h-4 border-outline text-primary" value="稳健型" onchange="applyFilter('risk', this)"/>
-              <span class="text-sm text-on-surface">稳健型</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="稳健型" onclick="event.stopPropagation(); applySingleFilter('risk', '稳健型', 'riskFilter')"/>
+              <span class="text-sm text-navy">稳健型</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="risk" class="w-4 h-4 border-outline text-primary" value="平衡型" onchange="applyFilter('risk', this)"/>
-              <span class="text-sm text-on-surface">平衡型</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="平衡型" onclick="event.stopPropagation(); applySingleFilter('risk', '平衡型', 'riskFilter')"/>
+              <span class="text-sm text-navy">平衡型</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="risk" class="w-4 h-4 border-outline text-primary" value="成长型" onchange="applyFilter('risk', this)"/>
-              <span class="text-sm text-on-surface">成长型</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="成长型" onclick="event.stopPropagation(); applySingleFilter('risk', '成长型', 'riskFilter')"/>
+              <span class="text-sm text-navy">成长型</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="risk" class="w-4 h-4 border-outline text-primary" value="进取型" onchange="applyFilter('risk', this)"/>
-              <span class="text-sm text-on-surface">进取型</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="risk" class="w-4 h-4 accent-[#2563EB]" value="进取型" onclick="event.stopPropagation(); applySingleFilter('risk', '进取型', 'riskFilter')"/>
+              <span class="text-sm text-navy">进取型</span>
             </label>
           </div>
         </div>
+
         <!-- 客户分类 -->
         <div class="relative flex-shrink-0">
-          <button onclick="toggleFilter(this, 'categoryFilter')" class="filter-chip h-9 pr-7">
-            <span id="categoryFilterLabel">客户分类</span>
-            <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
+          <button onclick="toggleFilterPanel('categoryFilter')" class="filter-chip h-8 pr-3" id="categoryChip">
+            <svg class="check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="categoryChipLabel">客户分类</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="chevron">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
-          <div id="categoryFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="category" class="w-4 h-4 border-outline text-primary" value="潜在客户" onchange="applyFilter('category', this)"/>
-              <span class="text-sm text-on-surface">潜在客户</span>
+          <div id="categoryFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[140px]">
+            <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">客户分类</div>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="潜在客户" onclick="event.stopPropagation(); applySingleFilter('category', '潜在客户', 'categoryFilter')"/>
+              <span class="text-sm text-navy">潜在客户</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="category" class="w-4 h-4 border-outline text-primary" value="潜力客户" onchange="applyFilter('category', this)"/>
-              <span class="text-sm text-on-surface">潜力客户</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="潜力客户" onclick="event.stopPropagation(); applySingleFilter('category', '潜力客户', 'categoryFilter')"/>
+              <span class="text-sm text-navy">潜力客户</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="category" class="w-4 h-4 border-outline text-primary" value="核心客户" onchange="applyFilter('category', this)"/>
-              <span class="text-sm text-on-surface">核心客户</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="核心客户" onclick="event.stopPropagation(); applySingleFilter('category', '核心客户', 'categoryFilter')"/>
+              <span class="text-sm text-navy">核心客户</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="category" class="w-4 h-4 border-outline text-primary" value="休眠客户" onchange="applyFilter('category', this)"/>
-              <span class="text-sm text-on-surface">休眠客户</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="category" class="w-4 h-4 accent-[#2563EB]" value="休眠客户" onclick="event.stopPropagation(); applySingleFilter('category', '休眠客户', 'categoryFilter')"/>
+              <span class="text-sm text-navy">休眠客户</span>
             </label>
           </div>
         </div>
+
         <!-- 资产区间 -->
         <div class="relative flex-shrink-0">
-          <button onclick="toggleFilter(this, 'assetFilter')" class="filter-chip h-9 pr-7">
-            <span id="assetFilterLabel">资产区间</span>
-            <span class="material-symbols-outlined" style="font-size:14px;margin-left:2px">expand_more</span>
+          <button onclick="toggleFilterPanel('assetFilter')" class="filter-chip h-8 pr-3" id="assetChip">
+            <svg class="check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="assetChipLabel">资产区间</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="chevron">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
-          <div id="assetFilter" class="hidden absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-outline-variant p-3 z-50 min-w-[160px]">
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="asset" class="w-4 h-4 border-outline text-primary" value="<10万" onchange="applyFilter('asset', this)"/>
-              <span class="text-sm text-on-surface">&lt;10万</span>
+          <div id="assetFilter" class="hidden absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-lg border border-[#E2E8F0] py-2 z-50 min-w-[140px]">
+            <div class="px-3 py-2 text-xs font-medium text-muted uppercase tracking-wider border-b border-[#F1F5F9]">资产区间</div>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="<10万" onclick="event.stopPropagation(); applySingleFilter('asset', '<10万', 'assetFilter')"/>
+              <span class="text-sm text-navy">&lt;10万</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="asset" class="w-4 h-4 border-outline text-primary" value="10-50万" onchange="applyFilter('asset', this)"/>
-              <span class="text-sm text-on-surface">10-50万</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="10-50万" onclick="event.stopPropagation(); applySingleFilter('asset', '10-50万', 'assetFilter')"/>
+              <span class="text-sm text-navy">10-50万</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="asset" class="w-4 h-4 border-outline text-primary" value="50-100万" onchange="applyFilter('asset', this)"/>
-              <span class="text-sm text-on-surface">50-100万</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="50-100万" onclick="event.stopPropagation(); applySingleFilter('asset', '50-100万', 'assetFilter')"/>
+              <span class="text-sm text-navy">50-100万</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="asset" class="w-4 h-4 border-outline text-primary" value="100-500万" onchange="applyFilter('asset', this)"/>
-              <span class="text-sm text-on-surface">100-500万</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value="100-500万" onclick="event.stopPropagation(); applySingleFilter('asset', '100-500万', 'assetFilter')"/>
+              <span class="text-sm text-navy">100-500万</span>
             </label>
-            <label class="flex items-center gap-2 py-2 cursor-pointer hover:bg-surface-container rounded-lg px-2">
-              <input type="radio" name="asset" class="w-4 h-4 border-outline text-primary" value=">500万" onchange="applyFilter('asset', this)"/>
-              <span class="text-sm text-on-surface">&gt;500万</span>
+            <label class="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-[#F8FAFC]">
+              <input type="radio" name="asset" class="w-4 h-4 accent-[#2563EB]" value=">500万" onclick="event.stopPropagation(); applySingleFilter('asset', '>500万', 'assetFilter')"/>
+              <span class="text-sm text-navy">&gt;500万</span>
             </label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 已选条件标签行 -->
-    <div id="activeFiltersRow" class="hidden flex flex-wrap gap-1.5 mb-3">
-      <!-- 动态插入已选条件标签 -->
+    <!-- 已选条件标签 -->
+    <div id="activeFiltersRow" class="hidden flex flex-wrap gap-2 mb-4">
+      <!-- 动态生成 -->
     </div>
 
     <!-- 客户列表 -->
     <div id="customerList" class="space-y-3">
-      <!-- 列表项由 JS 渲染 -->
+      <!-- JS 渲染 -->
     </div>
 
-    <!-- 加载中骨架屏 -->
+    <!-- 骨架屏 -->
     <div id="loadingSkeleton" class="hidden space-y-3 mt-3">
-      <div class="bg-white rounded-2xl p-4 shadow-sm">
+      <div class="bg-white rounded-2xl p-4" style="box-shadow:0 4rpx 16rpx rgba(0,0,0,0.06)">
         <div class="flex items-center gap-3">
           <div class="skeleton w-10 h-10 rounded-full"></div>
           <div class="flex-1 space-y-2">
@@ -254,17 +303,7 @@
           <div class="skeleton h-3 w-16 rounded"></div>
         </div>
       </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm">
-        <div class="flex items-center gap-3">
-          <div class="skeleton w-10 h-10 rounded-full"></div>
-          <div class="flex-1 space-y-2">
-            <div class="skeleton h-4 w-24 rounded"></div>
-            <div class="skeleton h-3 w-32 rounded"></div>
-          </div>
-          <div class="skeleton h-3 w-16 rounded"></div>
-        </div>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm">
+      <div class="bg-white rounded-2xl p-4" style="box-shadow:0 4rpx 16rpx rgba(0,0,0,0.06)">
         <div class="flex items-center gap-3">
           <div class="skeleton w-10 h-10 rounded-full"></div>
           <div class="flex-1 space-y-2">
@@ -277,108 +316,144 @@
     </div>
 
     <!-- 底部加载提示 -->
-    <div id="loadMoreHint" class="text-center py-6 text-sm text-on-surface-variant">
+    <div id="loadMoreHint" class="text-center py-6 text-sm text-muted">
       <span id="loadHintText">上滑加载更多</span>
     </div>
 
     <!-- 空状态 -->
     <div id="emptyState" class="hidden flex flex-col items-center justify-center py-16">
-      <div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center mb-4">
-        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:40px">person_search</span>
+      <div class="w-20 h-20 rounded-full bg-[#F1F5F9] flex items-center justify-center mb-4">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="8" r="4" stroke="#64748B" stroke-width="1.5"/>
+          <path d="M4 20c0-4 3.6-7 7-7s7 3 7 7" stroke="#64748B" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M19 8l2 2 4-4" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-      <p class="font-headline font-semibold text-on-surface mb-1">暂无符合条件的客户</p>
-      <p class="text-sm text-on-surface-variant">调整筛选条件后重试</p>
+      <p class="font-semibold text-base text-navy mb-1">暂无符合条件的客户</p>
+      <p class="text-sm text-muted">调整筛选条件后重试</p>
     </div>
 
   </main>
 
   <script>
-    // ========== 模拟数据 ==========
-    const allCustomers = [
-      { id: 'C001', name: '张伟', phone: '138****8888', type: '基金客户', aum: 50.2, activeDays: 3, risk: '平衡型', category: '潜力客户' },
-      { id: 'C002', name: '李娜', phone: '139****9999', type: '理财客户', aum: 120.5, activeDays: 15, risk: '稳健型', category: '核心客户' },
-      { id: 'C003', name: '王芳', phone: '136****1234', type: '混合客户', aum: 85.0, activeDays: 7, risk: '成长型', category: '潜力客户' },
-      { id: 'C004', name: '刘洋', phone: '137****5678', type: '存款客户', aum: 8.5, activeDays: 45, risk: '保守型', category: '潜在客户' },
-      { id: 'C005', name: '陈静', phone: '135****2345', type: '基金客户', aum: 200.0, activeDays: 1, risk: '进取型', category: '核心客户' },
-      { id: 'C006', name: '赵强', phone: '158****6789', type: '理财客户', aum: 55.8, activeDays: 22, risk: '平衡型', category: '潜力客户' },
-      { id: 'C007', name: '孙丽', phone: '159****3456', type: '混合客户', aum: 150.0, activeDays: 5, risk: '稳健型', category: '核心客户' },
-      { id: 'C008', name: '周涛', phone: '186****7890', type: '基金客户', aum: 32.0, activeDays: 60, risk: '平衡型', category: '休眠客户' },
-      { id: 'C009', name: '吴婷', phone: '187****0123', type: '理财客户', aum: 88.0, activeDays: 10, risk: '成长型', category: '潜力客户' },
-      { id: 'C010', name: '郑明', phone: '188****4567', type: '存款客户', aum: 12.0, activeDays: 95, risk: '保守型', category: '潜在客户' },
-      { id: 'C011', name: '黄磊', phone: '189****8901', type: '基金客户', aum: 180.0, activeDays: 2, risk: '进取型', category: '核心客户' },
-      { id: 'C012', name: '杨雪', phone: '135****5678', type: '混合客户', aum: 65.0, activeDays: 18, risk: '稳健型', category: '潜力客户' },
-      { id: 'C013', name: '周勇', phone: '136****9012', type: '理财客户', aum: 42.0, activeDays: 30, risk: '平衡型', category: '潜力客户' },
-      { id: 'C014', name: '吴娟', phone: '137****3456', type: '基金客户', aum: 95.0, activeDays: 8, risk: '成长型', category: '核心客户' },
-      { id: 'C015', name: '徐鹏', phone: '138****7890', type: '存款客户', aum: 6.0, activeDays: 120, risk: '保守型', category: '休眠客户' },
+    // ===== 数据 =====
+    var allCustomers = [
+      { id: 'C001', name: '张伟',   phone: '138****8888', type: '基金客户', aum: 50.2,  activeDays: 3,  risk: '平衡型', category: '潜力客户' },
+      { id: 'C002', name: '李娜',   phone: '139****9999', type: '理财客户', aum: 120.5, activeDays: 15, risk: '稳健型', category: '核心客户' },
+      { id: 'C003', name: '王芳',   phone: '136****1234', type: '混合客户', aum: 85.0,  activeDays: 7,  risk: '成长型', category: '潜力客户' },
+      { id: 'C004', name: '刘洋',   phone: '137****5678', type: '存款客户', aum: 8.5,   activeDays: 45, risk: '保守型', category: '潜在客户' },
+      { id: 'C005', name: '陈静',   phone: '135****2345', type: '基金客户', aum: 200.0, activeDays: 1,  risk: '进取型', category: '核心客户' },
+      { id: 'C006', name: '赵强',   phone: '158****6789', type: '理财客户', aum: 55.8,  activeDays: 22, risk: '平衡型', category: '潜力客户' },
+      { id: 'C007', name: '孙丽',   phone: '159****3456', type: '混合客户', aum: 150.0, activeDays: 5,  risk: '稳健型', category: '核心客户' },
+      { id: 'C008', name: '周涛',   phone: '186****7890', type: '基金客户', aum: 32.0,  activeDays: 60, risk: '平衡型', category: '休眠客户' },
+      { id: 'C009', name: '吴婷',   phone: '187****0123', type: '理财客户', aum: 88.0,  activeDays: 10, risk: '成长型', category: '潜力客户' },
+      { id: 'C010', name: '郑明',   phone: '188****4567', type: '存款客户', aum: 12.0,  activeDays: 95, risk: '保守型', category: '潜在客户' },
+      { id: 'C011', name: '黄磊',   phone: '189****8901', type: '基金客户', aum: 180.0, activeDays: 2,  risk: '进取型', category: '核心客户' },
+      { id: 'C012', name: '杨雪',   phone: '135****5678', type: '混合客户', aum: 65.0,  activeDays: 18, risk: '稳健型', category: '潜力客户' },
+      { id: 'C013', name: '周勇',   phone: '136****9012', type: '理财客户', aum: 42.0,  activeDays: 30, risk: '平衡型', category: '潜力客户' },
+      { id: 'C014', name: '吴娟',   phone: '137****3456', type: '基金客户', aum: 95.0,  activeDays: 8,  risk: '成长型', category: '核心客户' },
+      { id: 'C015', name: '徐鹏',   phone: '138****7890', type: '存款客户', aum: 6.0,   activeDays: 120,risk: '保守型', category: '休眠客户' },
     ];
 
-    // ========== 状态管理 ==========
-    let filteredCustomers = [...allCustomers];
-    let filters = { type: [], risk: '', category: '', asset: '' };
-    let pageSize = 5;
-    let displayedCount = 0;
+    // ===== 状态 =====
+    var filters = { type: [], risk: '', category: '', asset: '' };
+    var pageSize = 5;
+    var displayedCount = 0;
+    var isLoading = false;
 
-    // ========== 筛选器切换 ==========
-    var activeFilterId = null;
-    function toggleFilter(btn, filterId) {
-      // 阻止事件冒泡，防止触发 document click 关闭
+    // ===== 筛选器面板切换 =====
+    var activePanel = null;
+
+    function toggleFilterPanel(id) {
       event.stopPropagation();
-      // 关闭其他筛选器
-      ['typeFilter', 'riskFilter', 'categoryFilter', 'assetFilter'].forEach(id => {
-        if (id !== filterId) {
-          const el = document.getElementById(id);
-          if (el) el.classList.add('hidden');
-        }
+      var panels = ['typeFilter', 'riskFilter', 'categoryFilter', 'assetFilter'];
+      panels.forEach(function(p) {
+        var el = document.getElementById(p);
+        if (el) el.classList.add('hidden');
       });
-      const target = document.getElementById(filterId);
-      if (target) {
-        if (target.classList.contains('hidden')) {
-          target.classList.remove('hidden');
-          activeFilterId = filterId;
-        } else {
-          target.classList.add('hidden');
-          activeFilterId = null;
-        }
+      var target = document.getElementById(id);
+      if (!target) return;
+      if (target.classList.contains('hidden')) {
+        target.classList.remove('hidden');
+        activePanel = id;
+      } else {
+        target.classList.add('hidden');
+        activePanel = null;
       }
-      // 点击外部关闭
-      setTimeout(function() {
-        document.addEventListener('click', function closeFilter(e) {
-          if (activeFilterId && !document.getElementById(activeFilterId).contains(e.target) && !e.target.closest('.filter-chip')) {
-            document.getElementById(activeFilterId).classList.add('hidden');
-            activeFilterId = null;
-            document.removeEventListener('click', closeFilter);
-          }
-        });
-      }, 10);
     }
 
-    function applyFilter(type, input) {
-      if (type === 'type') {
-        // 多选：收集所有勾选的type
-        const checked = [...document.querySelectorAll('#typeFilter input:checked')].map(cb => cb.value);
-        filters.type = checked;
-        document.getElementById('typeFilterLabel').textContent = checked.length ? `产品类型(${checked.length})` : '产品类型';
-        document.querySelector('[onclick="toggleFilter(this, \'typeFilter\')"]').classList.toggle('selected', checked.length > 0);
-      } else {
-        filters[type] = input.value;
-        const labelMap = { risk: '风险等级', category: '客户分类', asset: '资产区间' };
-        document.getElementById(type + 'FilterLabel').textContent = input.value;
-        document.querySelector(`[onclick="toggleFilter(this, '${type}Filter')"]`).classList.add('selected');
+    // 点击外部关闭
+    document.addEventListener('click', function(e) {
+      if (activePanel && !document.getElementById(activePanel).contains(e.target) && !e.target.closest('.filter-chip')) {
+        document.getElementById(activePanel).classList.add('hidden');
+        activePanel = null;
       }
-      // 关闭下拉
-      document.getElementById(type + 'Filter').classList.add('hidden');
-      // 更新已选条件标签
+    });
+
+    // ===== 单选筛选（radio） =====
+    function applySingleFilter(type, value, panelId) {
+      // 记录筛选值
+      filters[type] = value;
+      // 关闭面板
+      document.getElementById(panelId).classList.add('hidden');
+      activePanel = null;
+      // 更新 Chip 状态
+      var chip = document.getElementById(type + 'Chip');
+      var label = document.getElementById(type + 'ChipLabel');
+      chip.classList.add('active');
+      label.textContent = value;
+      // 更新已选标签
       updateActiveFiltersRow();
       // 重新筛选
       applyFilters();
     }
 
+    // ===== 多选筛选（checkbox） =====
+    function applyChipFilter(type, panelId) {
+      // 收集当前勾选项
+      var checked = [].slice.call(document.querySelectorAll('#' + panelId + ' input:checked')).map(function(cb) { return cb.value; });
+      filters.type = checked;
+      // 更新 Chip 状态
+      var chip = document.getElementById(type + 'Chip');
+      var label = document.getElementById(type + 'ChipLabel');
+      if (checked.length > 0) {
+        chip.classList.add('active');
+        label.textContent = '产品类型(' + checked.length + ')';
+      } else {
+        chip.classList.remove('active');
+        label.textContent = '产品类型';
+      }
+      // 更新已选标签
+      updateActiveFiltersRow();
+      // 重新筛选
+      applyFilters();
+    }
+
+    // ===== 清除筛选 =====
+    function clearFilter(key) {
+      if (key === 'type') {
+        filters.type = [];
+        document.querySelectorAll('#typeFilter input:checked').forEach(function(cb) { cb.checked = false; });
+        document.getElementById('typeChip').classList.remove('active');
+        document.getElementById('typeChipLabel').textContent = '产品类型';
+      } else {
+        filters[key] = '';
+        document.querySelectorAll('#' + key + 'Filter input').forEach(function(i) { i.checked = false; });
+        document.getElementById(key + 'Chip').classList.remove('active');
+        var labelMap = { risk: '风险等级', category: '客户分类', asset: '资产区间' };
+        document.getElementById(key + 'ChipLabel').textContent = labelMap[key];
+      }
+      updateActiveFiltersRow();
+      applyFilters();
+    }
+
+    // ===== 更新已选条件行 =====
     function updateActiveFiltersRow() {
-      const row = document.getElementById('activeFiltersRow');
-      const items = [];
+      var row = document.getElementById('activeFiltersRow');
+      var items = [];
       if (filters.type.length) items.push({ label: '产品类型', value: filters.type.join(','), key: 'type' });
-      if (filters.category) items.push({ label: '客户分类', value: filters.category, key: 'category' });
       if (filters.risk) items.push({ label: '风险等级', value: filters.risk, key: 'risk' });
+      if (filters.category) items.push({ label: '客户分类', value: filters.category, key: 'category' });
       if (filters.asset) items.push({ label: '资产区间', value: filters.asset, key: 'asset' });
 
       if (items.length === 0) {
@@ -386,59 +461,46 @@
         return;
       }
       row.classList.remove('hidden');
-      row.innerHTML = items.map(item => `
-        <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/10 text-primary text-xs rounded-full">
-          <span class="font-medium">${item.label}:</span>
-          <span>${item.value}</span>
-          <button onclick="clearFilter('${item.key}')" class="ml-1 hover:text-primary/70">
-            <span class="material-symbols-outlined" style="font-size:12px">close</span>
-          </button>
-        </span>
-      `).join('');
+      row.innerHTML = items.map(function(item) {
+        return '<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#2563EB]/8 text-[#2563EB] text-xs font-medium rounded-full">' +
+          '<span>' + item.label + ':</span>' +
+          '<span>' + item.value + '</span>' +
+          '<button onclick="clearFilter(\'' + item.key + '\')" class="hover:opacity-70 cursor-pointer">' +
+            '<svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>' +
+          '</button>' +
+        '</span>';
+      }).join('');
     }
 
-    function clearFilter(key) {
-      if (key === 'type') {
-        filters.type = [];
-        document.querySelectorAll('#typeFilter input:checked').forEach(cb => cb.checked = false);
-        document.getElementById('typeFilterLabel').textContent = '产品类型';
-        document.querySelector('[onclick="toggleFilter(this, \'typeFilter\')"]').classList.remove('selected');
-      } else {
-        filters[key] = '';
-        const labelMap = { risk: '风险等级', category: '客户分类', asset: '资产区间' };
-        document.getElementById(key + 'FilterLabel').textContent = labelMap[key];
-        document.querySelectorAll(`#${key}Filter input`).forEach(function(i) { i.checked = false; });
-        document.querySelector(`[onclick="toggleFilter(this, '${key}Filter')"]`).classList.remove('selected');
-      }
-      updateActiveFiltersRow();
-      applyFilters();
-    }
-
+    // ===== 执行筛选 =====
     function applyFilters() {
-      filteredCustomers = allCustomers.filter(c => {
-        if (filters.type.length && !filters.type.includes(c.type)) return false;
+      var result = allCustomers.filter(function(c) {
+        if (filters.type.length && filters.type.indexOf(c.type) === -1) return false;
         if (filters.risk && c.risk !== filters.risk) return false;
         if (filters.category && c.category !== filters.category) return false;
         if (filters.asset) {
-          const ranges = { '<10万': [0, 10], '10-50万': [10, 50], '50-100万': [50, 100], '100-500万': [100, 500], '>500万': [500, Infinity] };
-          const [min, max] = ranges[filters.asset] || [0, Infinity];
-          if (c.aum < min || c.aum >= max) return false;
+          var ranges = { '<10万': [0, 10], '10-50万': [10, 50], '50-100万': [50, 100], '100-500万': [100, 500], '>500万': [500, Infinity] };
+          var range = ranges[filters.asset] || [0, Infinity];
+          if (c.aum < range[0] || c.aum >= range[1]) return false;
         }
         return true;
       });
+      // 直接替换列表
+      window._filteredCustomers = result;
       displayedCount = 0;
       renderList(true);
     }
 
-    // ========== 渲染列表 ==========
-    function renderList(reset = false) {
-      const list = document.getElementById('customerList');
+    // ===== 渲染列表 =====
+    function renderList(reset) {
+      var list = document.getElementById('customerList');
       if (reset) {
         list.innerHTML = '';
         displayedCount = 0;
       }
 
-      if (filteredCustomers.length === 0) {
+      var data = window._filteredCustomers || allCustomers;
+      if (data.length === 0) {
         document.getElementById('emptyState').classList.remove('hidden');
         document.getElementById('loadMoreHint').classList.add('hidden');
         return;
@@ -446,66 +508,63 @@
       document.getElementById('emptyState').classList.add('hidden');
       document.getElementById('loadMoreHint').classList.remove('hidden');
 
-      const toShow = filteredCustomers.slice(displayedCount, displayedCount + pageSize);
-      toShow.forEach(c => {
-        const activeText = c.activeDays <= 30 ? c.activeDays + '天前' : formatDate(c.activeDays);
-        const html = `
-          <div class="bg-white rounded-2xl p-4 shadow-sm cursor-pointer active:scale-[0.99] transition-transform" onclick="openCustomerDetail('${c.id}')">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span class="font-headline font-bold text-primary text-sm">${c.name[0]}</span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-0.5">
-                  <span class="font-headline font-semibold text-on-surface">${c.name}</span>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant">${c.type}</span>
-                </div>
-                <div class="flex items-center gap-3 text-xs text-on-surface-variant">
-                  <span>${c.phone}</span>
-                  <span class="w-px h-3 bg-outline-variant"></span>
-                  <span>AUM: <span class="font-semibold text-on-surface">${c.aum}万</span></span>
-                </div>
-              </div>
-              <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                <span class="text-xs text-on-surface-variant">${activeText}</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="text-on-surface-variant">
-                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-        `;
+      var toShow = data.slice(displayedCount, displayedCount + pageSize);
+      toShow.forEach(function(c) {
+        var activeText = c.activeDays <= 30 ? c.activeDays + '天前' : formatDate(c.activeDays);
+        var tagClass = c.category === '核心客户' ? 'tag-green' : c.category === '潜力客户' ? 'tag-blue' : c.category === '休眠客户' ? 'tag-gray' : 'tag-orange';
+        var html = '<div class="customer-card" onclick="openDetail(\'' + c.id + '\')">' +
+          '<div class="flex items-center gap-3">' +
+            '<div class="w-10 h-10 rounded-full bg-[#dbeafe] flex items-center justify-center flex-shrink-0">' +
+              '<span class="font-semibold text-[#2563EB] text-sm">' + c.name[0] + '</span>' +
+            '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center gap-2 mb-0.5">' +
+                '<span class="font-semibold text-[15px] text-navy">' + c.name + '</span>' +
+                '<span class="tag ' + tagClass + '">' + c.category + '</span>' +
+              '</div>' +
+              '<div class="flex items-center gap-3 text-xs text-muted">' +
+                '<span>' + c.phone + '</span>' +
+                '<span class="w-px h-3 bg-[#E2E8F0]"></span>' +
+                '<span>AUM: <span class="font-semibold text-navy num">' + c.aum + '万</span></span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="flex flex-col items-end gap-1 flex-shrink-0">' +
+              '<span class="text-xs text-muted">' + activeText + '</span>' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
         list.insertAdjacentHTML('beforeend', html);
       });
 
       displayedCount += toShow.length;
       document.getElementById('loadHintText').textContent =
-        displayedCount >= filteredCustomers.length
-          ? `已全部加载，共 ${filteredCustomers.length} 条`
+        displayedCount >= data.length
+          ? '已全部加载，共 ' + data.length + ' 条'
           : '上滑加载更多';
     }
 
     function formatDate(daysAgo) {
-      const d = new Date();
+      var d = new Date();
       d.setDate(d.getDate() - daysAgo);
-      return `${d.getMonth()+1}.${d.getDate()}`;
+      return (d.getMonth() + 1) + '.' + d.getDate();
     }
 
-    function openCustomerDetail(id) {
+    function openDetail(id) {
       window.open('https://akarozu.github.io/hui-zhan-ye-doc/管户客户查询/prototypes/慧展业_客户详情页.html?id=' + id, '_blank');
     }
 
-    // ========== 滚屏加载 ==========
-    let isLoading = false;
+    // ===== 滚动加载 =====
     window.addEventListener('scroll', function() {
       if (isLoading) return;
-      const sh = document.documentElement.scrollHeight;
-      const st = window.scrollY + window.innerHeight;
+      var sh = document.documentElement.scrollHeight;
+      var st = window.scrollY + window.innerHeight;
       if (st >= sh - 200) {
-        if (displayedCount >= filteredCustomers.length) return;
+        var data = window._filteredCustomers || allCustomers;
+        if (displayedCount >= data.length) return;
         isLoading = true;
         document.getElementById('loadingSkeleton').classList.remove('hidden');
-        setTimeout(() => {
+        setTimeout(function() {
           document.getElementById('loadingSkeleton').classList.add('hidden');
           renderList(false);
           isLoading = false;
@@ -513,17 +572,18 @@
       }
     });
 
-    // ========== Toast 提示 ==========
+    // ===== Toast =====
     function toast(msg) {
-      const el = document.createElement('div');
-      el.className = 'fixed top-20 left-1/2 -translate-x-1/2 bg-on-surface text-white px-4 py-2 rounded-xl text-sm z-[200] shadow-lg';
+      var el = document.createElement('div');
+      el.className = 'toast';
       el.textContent = msg;
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 2000);
+      setTimeout(function() { el.remove(); }, 2000);
     }
 
-    // ========== 初始化 ==========
+    // ===== 初始化 =====
     document.addEventListener('DOMContentLoaded', function() {
+      window._filteredCustomers = allCustomers;
       renderList(true);
     });
   </script>
