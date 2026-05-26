@@ -177,17 +177,7 @@
 
   <!-- TopAppBar -->
   <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl shadow-sm h-16 flex justify-between items-center px-5">
-    <div class="flex items-center gap-2">
-      <button onclick="history.back()" class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center cursor-pointer transition-all active:scale-95">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <span class="font-bold text-base text-navy">管户客户</span>
-    </div>
-    <button onclick="toggleFilterModal()" class="w-10 h-10 rounded-full bg-surface-bg flex items-center justify-center cursor-pointer active:scale-95 transition-transform">
-      <span class="material-symbols-outlined text-muted" style="font-size:20px">tune</span>
-    </button>
+    <span class="font-bold text-base text-navy">管户客户</span>
   </header>
 
   <!-- Main Content -->
@@ -209,6 +199,9 @@
       </button>
       <button id="sortRisk" class="sort-chip" onclick="toggleSort('risk', this)">
         风险等级 <span class="arrow">▲</span>
+      </button>
+      <button onclick="toggleFilterModal()" class="ml-auto flex-shrink-0 w-9 h-9 rounded-full bg-surface-bg flex items-center justify-center cursor-pointer active:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-muted" style="font-size:20px">tune</span>
       </button>
     </div>
 
@@ -390,32 +383,55 @@
         sortDir = 'asc';
       }
       btn.classList.add('active', sortDir);
-      applySort();
+      refreshList();
     }
 
-    function applySort() {
-      if (!sortKey) {
-        displayed = searchKeyword ? filterBySearch(allCustomers) : [...allCustomers];
-        applyFiltersToList();
-        return;
-      }
-      const dir = sortDir === 'asc' ? 1 : -1;
-      const base = searchKeyword ? filterBySearch(allCustomers) : [...allCustomers];
-      displayed = base.sort((a, b) => {
-        let va = a[sortKey], vb = b[sortKey];
-        if (sortKey === 'aum') { va = +va; vb = +vb; }
-        if (sortKey === 'active') { va = +va; vb = +vb; }
-        if (va < vb) return -1 * dir;
-        if (va > vb) return 1 * dir;
-        return 0;
-      });
-      applyFiltersToList();
-    }
-
-    // ========== Search ==========
     function onSearch(val) {
       searchKeyword = val.trim().toLowerCase();
-      applySort();
+      refreshList();
+    }
+
+    function refreshList() {
+      // Build the filtered + sorted dataset, then render from scratch
+      let result = [...allCustomers];
+      if (searchKeyword) result = filterBySearch(result);
+      // Apply filters
+      if (filters.type.length) result = result.filter(c => filters.type.includes(c.type));
+      if (filters.risk.length) result = result.filter(c => filters.risk.includes(c.risk));
+      if (filters.category.length) result = result.filter(c => filters.category.includes(c.category));
+      if (filters.active.length) {
+        result = result.filter(c => {
+          return filters.active.some(f => {
+            const map = { '近7天': 7, '近30天': 30, '近90天': 90, '90天以上': 91 };
+            const threshold = map[f];
+            if (f === '90天以上') return c.activeDays > threshold;
+            return c.activeDays <= threshold;
+          });
+        });
+      }
+      if (filters.asset.length) {
+        result = result.filter(c => {
+          return filters.asset.some(f => {
+            const ranges = { '<10万': [0, 10], '10-50万': [10, 50], '50-100万': [50, 100], '100-500万': [100, 500], '>500万': [500, Infinity] };
+            const [min, max] = ranges[f] || [0, Infinity];
+            return c.aum >= min && c.aum < max;
+          });
+        });
+      }
+      // Apply sort
+      if (sortKey) {
+        const dir = sortDir === 'asc' ? 1 : -1;
+        result.sort((a, b) => {
+          let va = a[sortKey], vb = b[sortKey];
+          if (sortKey === 'aum') { va = +va; vb = +vb; }
+          if (va < vb) return -1 * dir;
+          if (va > vb) return 1 * dir;
+          return 0;
+        });
+      }
+      displayed = result;
+      displayedCount = 0;
+      renderList(true);
     }
 
     function filterBySearch(list) {
